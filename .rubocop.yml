@@ -1,0 +1,24 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+Rails:
+  Enabled: true
+
+  # 文字数上限
+LineLength:
+  Max: 130
+
+#ここにはrubocopで検証したくないファイルやフォルダを指定
+AllCops:
+  Exclude:
+    - "config.ru"
+    - "db/**/*"
+    - "bin/*"
+    - "config/**/*"
+    - "lib/**"
+    - "vendor/**/*"
+    - "path/ruby"
+    - ".git/**/*"
+    - "**/Gemfile"
+    - "node_modules/**/*"
+    - "script/**/*"
