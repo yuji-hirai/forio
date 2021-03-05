@@ -15,10 +15,10 @@
 #
 #  index_users_on_email  (email) UNIQUE
 #
-require "test_helper"
-
-class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+FactoryBot.define do
+  factory :user do
+    sequence(:name) { |n| "TEST_NAME#{n}" }
+    sequence(:email) { |n| "TEST#{n}@example.com" }
+    sequence(:password) { |n| "TEST_PASSWORD#{n}" }
+  end
 end
