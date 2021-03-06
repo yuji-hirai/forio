@@ -9,6 +9,24 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+  <header>
+    <nav>
+
+      <%= link_to 'TOP', root_path %>
+
+      <% if user_signed_in? %>
+        <%= current_user.name %>さん
+      <%= link_to 'プロフィール', users_show_path(id: current_user.id) %>
+        <%= link_to 'プロフィール変更', edit_user_registration_path %> |
+        <%= link_to "ログアウト", sign_out_path %>
+      <% else %>
+        <%= link_to "サインイン", new_user_registration_path %> |
+        <%= link_to "ログイン", new_user_session_path %>
+      <% end %>
+    </nav>
+  </header>
+  <%= render partial: 'layouts/flash' %>
+
     <%= yield %>
   </body>
 </html>

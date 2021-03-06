@@ -1,0 +1,9 @@
+<h1>about me</h1>
+
+<%= image_tag @user.image.variant(resize:'200x200') %>
+<h3>ユーザー名</h3>
+<%= @user.name %>
+<h3>メールアドレス</h3>
+<%= @user.email %>
+<h3>自己紹介</h3>
+<%= @user.introduction%>

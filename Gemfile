@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  gem 'rails-flog', require: 'flog'
 end
 
 group :development do
@@ -50,6 +51,8 @@ group :development do
   gem 'spring'
   gem 'pry-byebug'
   gem 'i18n_generators'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
@@ -65,3 +68,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'kaminari'
 gem 'annotate'
+gem 'devise'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+gem 'mini_magick'
+gem 'aws-sdk-s3', require: false

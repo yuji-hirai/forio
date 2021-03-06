@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_target_post, only: %i[show edit update destroy]
+  before_action :set_target_post, only: %i(show edit update destroy)
   PER = 8
   def index
     @posts = Post.all
@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
+
   def create
     @post = Post.new(post_params)
     if @post.save
@@ -20,6 +21,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @post.comments
   end
 
   def edit
@@ -32,8 +35,6 @@ class PostsController < ApplicationController
       flash.now[:notice] = '投稿に失敗しました'
       render "edit"
     end
-
-
   end
 
   def destroy

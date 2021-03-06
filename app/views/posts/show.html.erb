@@ -19,3 +19,32 @@
     <p class="text-right font-weight-bold mr-10"><%= @post.title %></p>
   </div>
 </div>
+
+<%= form_with model: [@post, @comment], local: true do |f| %>
+  <%= f.text_area :content, size: "40x5" %>
+  <%= f.submit '送信', class: "btn-sm btn-primary" %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>コメント投稿者</th>
+      <th>コメント内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @post.comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <%# <td><%= link_to "削除", post_comment_path(@post, comment), method: :delete %></td> %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%# <div class="p-comment_list">
+  <div class="p-comment_listTitle">コメント</div>
+  <%= render @post.comments %>
+<%# </div> %> %>
+
+<%# <%= render partial: 'comments/form', locals: { comment: @comments } %> %>
