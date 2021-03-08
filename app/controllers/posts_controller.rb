@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
-  before_action :set_target_post, only: %i(show edit update destroy)
+  before_action :set_target_post, only: [:show, :edit, :update, :destroy]
   PER = 8
   def index
-    @posts = Post.all
     @posts = Post.page(params[:page]).per(PER)
+
+
   end
 
   def new
@@ -12,6 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    # @post.user_id = current_user.id
     if @post.save
       redirect_to posts_path, notice: "#{@post.title}を投稿しました"
     else
@@ -21,8 +23,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    @comment = Comment.new
-    @comments = @post.comments
+    @comment = Comment.new(post_id: @post.id)
+    @comments = @post.comments.includes(:user)
   end
 
   def edit
@@ -38,14 +40,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.delete
+    @post.destroy
     redirect_to posts_path, notice: "#{@post.title}を削除しました"
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :image)
+    params.require(:post).permit(:title, :body, :image).merge(user_id: current_user.id)
   end
 
   def set_target_post

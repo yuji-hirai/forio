@@ -31,6 +31,9 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
+
   validates :name,
             presence: true,
             length: { maximum: 50 }
@@ -39,6 +42,10 @@ class User < ApplicationRecord
             length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
+
+  def liked_by?(post_id)
+    likes.where(post_id: post_id).exists?
+  end
 
   private
 

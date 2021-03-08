@@ -73,3 +73,4 @@ gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'mini_magick'
 gem 'aws-sdk-s3', require: false
+gem 'font-awesome-sass'
