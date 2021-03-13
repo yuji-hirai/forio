@@ -39,7 +39,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'spring-commands-rspec'
+  # gem 'spring-commands-rspec'
   gem 'rubocop-airbnb'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
@@ -48,7 +48,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # gem 'spring'
   gem 'pry-byebug'
   gem 'i18n_generators'
   gem 'better_errors'
