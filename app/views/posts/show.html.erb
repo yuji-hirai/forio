@@ -17,12 +17,13 @@
   <div id="post_<%= @post.id %>">
     <%= render 'post', post: @post %>
   </div>
-<%= form_with model: [@post, @comment], local: true do |f| %>
-  <%= f.label :content, 'コメント' %>
-  <%= f.text_area :content, size: "40x5" %>
-  <%= f.submit '送信', class: "btn-sm btn-primary" %>
+<%  unless current_user.id == @post.user.id %>
+  <%= form_with model: [@post, @comment], local: true do |f| %>
+    <%= f.label :content, 'コメント' %>
+    <%= f.text_area :content, size: "40x5" %>
+    <%= f.submit '送信', class: "btn-sm btn-primary" %>
+  <% end %>
 <% end %>
-
 <table>
   <thead>
     <tr>
@@ -31,14 +32,17 @@
     </tr>
   </thead>
   <tbody>
+
+
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.user.name %></td>
         <td><%= comment.content %></td>
         <% if @post.user.id == current_user.id %>
         <td><%= link_to "削除", post_comment_path(@post, comment), method: :delete %></td>
-        <% end %>
+
       </tr>
     <% end %>
   </tbody>
+  <% end %>
 </table>

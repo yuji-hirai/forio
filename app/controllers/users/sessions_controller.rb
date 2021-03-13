@@ -3,6 +3,12 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
+  def new_guest
+    user = User.guest
+    sign_in user
+    redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   # GET /resource/sign_in
   # def new
   #   super
@@ -25,7 +31,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    new_user_session_path
+    root_path
   end
 
   # If you have extra params to permit, append them to the sanitizer.

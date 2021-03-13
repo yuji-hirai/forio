@@ -1,15 +1,10 @@
-<div class="d-flex align-items-center">
-    <div class="ml-auto posts_button">
-      <%= link_to '投稿', new_post_path, class: 'btn btn-outline-info' %>
-    </div>
-</div>
 <table class="table table-bordered border-primary table-hover table-sm posts_table">
   <thead class="thead-dark">
     <tr>
       <th scope="col" >投稿タイトル</th>
       <th scope="col">いいね</th>
 			<th scope="col"></th>
-      <th scope="col">投稿者</th>
+			<th scope="col">投稿者</th>
       <th scope="col">コメント数</th>
       <th scope="col">投稿日</th>
       <th scope="col">更新日時</th>
@@ -20,7 +15,8 @@
         <tr>
           <td><%= post.title %></td>
           <td id="post_<%= post.id %>"><%= render 'post', post: post %><td>
-          <td><%= post.user.name %></td>
+          <td>
+					<%= link_to  "#{post.user.name}" , user_path(post.user.id) %></td>
           <td><%= post.comments.count %></td>
           <td><%= l post.created_at %></td>
           <td><%= l post.updated_at %></td>
@@ -33,3 +29,5 @@
 </table>
 
 <%= paginate @posts %>
+
+

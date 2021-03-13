@@ -4,18 +4,28 @@ Rails.application.routes.draw do
   :sessions => 'users/sessions'
   }
 
-  devise_scope :user do
-    get "sign_in", :to => "users/sessions#new"
-    get "sign_out", :to => "users/sessions#destroy"
+  resources :users do
+    member do
+        get :following, :followers
+    end
   end
-	get "users/show" => "users#show"
+  resources :relationships, only: [:create, :destroy]
+
+
+  devise_scope :user do
+    post 'guest_sign_in' => 'users/sessions#new_guest'
+    get "sign_in" => "users/sessions#new"
+    get "sign_out" => "users/sessions#destroy"
+  end
+
+  resources :users, :only => :show
 
   root "home#top"
 
   resources :posts do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, :only => [:create, :destroy]
   end
-	get 'likes/index' => 'likes#index'
+  get 'likes/index' => 'likes#index'
   post 'like/:id' => 'likes#create', as: 'create_like'
   delete 'like/:id' => 'likes#destroy', as: 'destroy_like'
 end

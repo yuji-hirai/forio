@@ -34,6 +34,11 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :like_posts, through: :likes, source: :post
 
+  has_many :following_relationships, foreign_key: "follower_id", class_name: "Relationship", dependent: :destroy
+  has_many :following, through: :following_relationships
+  has_many :follower_relationships, foreign_key: "following_id", class_name: "Relationship", dependent: :destroy
+  has_many :followers, through: :follower_relationships
+
   validates :name,
             presence: true,
             length: { maximum: 50 }
@@ -45,6 +50,25 @@ class User < ApplicationRecord
 
   def liked_by?(post_id)
     likes.where(post_id: post_id).exists?
+  end
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = "guestguest"
+      user.name = "guest"
+    end
+  end
+
+  def following?(user)
+    following_relationships.find_by(following_id: user.id)
+  end
+
+  def follow(user)
+    following_relationships.create!(following_id: user.id)
+  end
+
+  def unfollow(user)
+    following_relationships.find_by(following_id: user.id).destroy
   end
 
   private

@@ -13,24 +13,28 @@
   <body>
   <header>
     <nav>
-
-      <%= link_to 'TOP', root_path %>
-
-      <% if user_signed_in? %>
-        <%= current_user.name %>さん
-        <%= link_to '投稿一覧', posts_path %>
-        <%= link_to 'いいねした投稿一覧', likes_index_path %>
-      <%= link_to 'プロフィール', users_show_path(id: current_user.id) %>
-        <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-        <%= link_to "ログアウト", sign_out_path %>
-      <% else %>
-        <%= link_to "サインイン", new_user_registration_path %> |
-        <%= link_to "ログイン", new_user_session_path %>
-      <% end %>
-    </nav>
+			<%= link_to 'TOP', root_path %>
+			<div class="d-flex align-items-center">
+				<div class="ml-auto posts_button">
+					<% if user_signed_in? %>
+						<%= current_user.name %>さん
+						<%= link_to '投稿', new_post_path, class: 'btn btn-outline-info' %>
+						<%= link_to '投稿一覧', posts_path %>
+						<%= link_to 'いいねした投稿一覧', likes_index_path %>
+						<%= link_to 'プロフィール', user_path(id: current_user.id) %>
+						<%= link_to 'プロフィール変更', edit_user_registration_path %>
+						<%= link_to "ログアウト", sign_out_path %>
+					<% end %>
+				</div>
+			</div>
+		</nav>
   </header>
   <%= render partial: 'layouts/flash' %>
 
-    <%= yield %>
+  <%= yield %>
+	<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
   </body>
 </html>

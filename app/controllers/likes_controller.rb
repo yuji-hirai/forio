@@ -1,9 +1,9 @@
 class LikesController < ApplicationController
   before_action :post_params, only: [:create, :destroy]
 
- def index
-  @like_posts = current_user.like_posts
- end
+  def index
+    @like_posts = current_user.like_posts
+  end
 
   def create
     Like.create(user_id: current_user.id, post_id: params[:id])
