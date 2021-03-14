@@ -8,9 +8,12 @@
   </div>
 <% end %>
 
+<% @post.tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+
 <%= form_with model:post, local: true do |f| %>
   <div class="form-group">
-	<%= f.hidden_field :user_id %>
     <%= f.label :title, '投稿タイトル' %>
     <%= f.text_field :title, class: 'form-control' %>
     <small id="title-tip" class="form-text text-muted">
@@ -24,7 +27,12 @@
       投稿内容を入力してください。
     </small>
   </div>
-	<%= f.label :images, '画像' %>
-	<%= f.file_field :images, multiple: true %><br>
+  <div class="article-tags-field">
+    <%= f.label :name,"カテゴリー" %>
+    <%= f.text_field :name,value: @tag_list,
+  placeholder: "複数タグをつけるにはスペースで区切ってください。" %>
+  </div>
+  <%= f.label :images, '画像' %>
+  <%= f.file_field :images, multiple: true %><br>
   <%= f.submit '投稿', class: 'btn btn-info btn-block' %>
 <% end %>

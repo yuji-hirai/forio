@@ -1,35 +1,32 @@
 <% if  @user.id == current_user.id %>
-  <h1>about me</h1>
-  <% if @user.avatar.attached? %>
-    <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]).processed %>
-  <% end %>
-  <h3>ユーザー名</h3>
-  <%= @user.name %>
-  <h3>メールアドレス</h3>
-  <%= @user.email %>
-  <h3>自己紹介</h3>
-  <%= @user.introduction%>
+  <h1>プロフィールページ</h1>
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]).processed %>
+    <% end %>
+    <h3>ユーザー名</h3>
+    <%= @user.name %>
+    <h3>メールアドレス</h3>
+    <%= @user.email %>
+    <h3>自己紹介</h3>
+    <%= @user.introduction%>
 
-  <div class="follower">
-  <%= link_to followers_user_path(@user.id) do %>
-      <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
-  <% end %>
-</div>
-<div class="follow">
-  <%= link_to following_user_path(@user.id) do %>
-    <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
-  <% end %>
-</div>
+    <div class="follower">
+      <%= link_to followers_user_path(@user.id) do %>
+          <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
+      <% end %>
+    </div>
+    <div class="follow">
+      <%= link_to following_user_path(@user.id) do %>
+        <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
+      <% end %>
+    </div>
 
   <% else %>
-  <h1><%= @user.name %>プロフィールページ</h1>
-
-  <% if @user.avatar.attached? %>
-  <%= image_tag @user.avatar %>
-  <% end %>
-
+    <h1><%= @user.name %>プロフィールページ</h1>
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar %>
+    <% end %>
 <% end %>
-
 
 <div>
   <%= render "follow_form" %>

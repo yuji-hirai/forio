@@ -1,28 +1,32 @@
-<div class="d-flex align-items-center mt-4 mb-4">
-  <div class="ml-auto posts_button">
-    <%= link_to '編集', edit_post_path(@post), class: "btn btn-outline-info" %>
-    <%= link_to "削除" , @posts, class: 'btn btn-outline-info', method: :delete %>
+<% if @post.user_id == current_user.id %>
+  <div class="d-flex align-items-center mt-4 mb-4">
+    <div class="ml-auto posts_button">
+      <%= link_to '編集', edit_post_path(@post), class: "btn btn-outline-info" %>
+      <%= link_to "削除" , @posts, class: 'btn btn-outline-info', method: :delete %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="card">
   <div class="card-header bg-info text-white">
     <h4>タイトル<%= @post.title %></h4>
   </div>
-	<% if @post.images.attached? %>
-		<% @post.images.each do |image| %>
-			<%= image_tag image.variant(resize_to_limit: [200, 200]).processed %> <br>
-		<% end %>
-	<% end %>
-
+  <% if @post.images.attached? %>
+    <% @post.images.each do |image| %>
+      <%= image_tag image.variant(resize_to_limit: [200, 200]).processed %> <br>
+    <% end %>
+  <% end %>
   <div class="card-body">
     <p class="card-text"><%= simple_format(@post.body) %></p>
   </div>
 </div>
 
-  <div id="post_<%= @post.id %>">
-    <%= render 'post', post: @post %>
-  </div>
+<%# フォロー機能 %>
+<div id="post_<%= @post.id %>">
+  <%= render 'post', post: @post %>
+</div>
+
+<%# コメント機能 %>
 <%  unless current_user.id == @post.user.id %>
   <%= form_with model: [@post, @comment], local: true do |f| %>
     <%= f.label :content, 'コメント' %>
@@ -38,17 +42,14 @@
     </tr>
   </thead>
   <tbody>
-
-
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.user.name %></td>
         <td><%= comment.content %></td>
-        <% if @post.user.id == current_user.id %>
-        <td><%= link_to "削除", post_comment_path(@post, comment), method: :delete %></td>
-
+        <% if @post.user_id == current_user.id %>
+          <td><%= link_to "削除", post_comment_path(@post, comment), method: :delete %></td>
+        <% end %>
       </tr>
-    <% end %>
   </tbody>
   <% end %>
 </table>
