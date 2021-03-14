@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   :sessions => 'users/sessions'
   }
 
-  resources :users do
+  resources :users, :only => :show do
     member do
         get :following, :followers
     end
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get "sign_out" => "users/sessions#destroy"
   end
 
-  resources :users, :only => :show
+  # resources :users, :only => :show
 
   root "home#top"
 

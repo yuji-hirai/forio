@@ -47,7 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :introduction, :image])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :introduction, :avatar])
   end
 
   # The path used after sign up.
@@ -62,6 +62,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # 更新後のパスを指定
   def after_update_path_for(resource)
-    users_show_path(id: current_user.id)
+    user_path(id: current_user.id)
   end
 end

@@ -1,6 +1,8 @@
 <% if  @user.id == current_user.id %>
   <h1>about me</h1>
-  <%# <%= image_tag @user.image.variant(resize:'200x200') %>
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]).processed %>
+  <% end %>
   <h3>ユーザー名</h3>
   <%= @user.name %>
   <h3>メールアドレス</h3>
@@ -21,7 +23,11 @@
 
   <% else %>
   <h1><%= @user.name %>プロフィールページ</h1>
-  <td>
+
+  <% if @user.avatar.attached? %>
+  <%= image_tag @user.avatar %>
+  <% end %>
+
 <% end %>
 
 
