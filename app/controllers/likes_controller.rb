@@ -2,7 +2,7 @@ class LikesController < ApplicationController
   before_action :post_params, only: [:create, :destroy]
 
   def index
-    @like_posts = current_user.like_posts
+    @like_posts = current_user.like_posts.includes([:user])
   end
 
   def create

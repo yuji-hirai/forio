@@ -64,6 +64,7 @@ group :development do
   gem 'i18n_generators'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
 end
 
 group :test do

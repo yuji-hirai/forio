@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_target_post, only: [:show, :edit, :update, :destroy]
   PER = 8
   def index
-    @q = Post.ransack(params[:q])
+    @q = Post.includes(:tags).ransack(params[:q])
     if params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
       posts = @tag.posts
@@ -10,8 +10,8 @@ class PostsController < ApplicationController
       posts = @q.result(distinct: true)
     end
 
-    @tag_lists = Tag.all
-    @posts = Kaminari.paginate_array(posts.order(created_at: :desc)).page(params[:page]).per(PER)
+    @tag_lists = Tag.all.includes(:posts)
+    @posts = Kaminari.paginate_array(posts.includes({post_tags: :tag}, :user).with_attached_images.order(created_at: :desc)).page(params[:page]).per(PER)
   end
 
   def new
@@ -63,6 +63,6 @@ class PostsController < ApplicationController
   end
 
   def set_target_post
-    @post = Post.find(params[:id])
+    @post = Post.with_attached_images.find(params[:id])
   end
 end
