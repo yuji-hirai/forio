@@ -3,10 +3,18 @@
   <%= link_to '全投稿', posts_path %>
   <% @tag_lists.each  do |list| %>
     <% if list.posts.present? %>
-      <%= link_to "##{list.name}  (#{list.posts.count}件)", posts_path(tag_id: list.id) %>
+      <%= link_to "##{list.name}", posts_path(tag_id: list.id) %>
+      <span><%= "(#{list.posts.count})" %></span>
     <% end %>
   <% end %>
 </ul>
+
+<%= search_form_for @q do |f| %>
+  <%= f.label :title_or_body_or_tags_name_or_user_name, "キーワード検索" %>
+  <%= f.search_field :title_or_body_or_tags_name_or_user_name_cont, placeholder: '検索ワード' %>
+
+  <%= f.submit "検索" %>
+<% end %>
 
 <table class="table table-bordered border-primary table-hover table-sm posts_table">
   <thead class="thead-dark">

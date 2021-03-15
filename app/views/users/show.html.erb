@@ -28,6 +28,10 @@
     <% end %>
 <% end %>
 
+<% @user.posts.each do |post| %>
+  <%= link_to post.title, post%>
+<% end %>
+
 <div>
   <%= render "follow_form" %>
 </div>

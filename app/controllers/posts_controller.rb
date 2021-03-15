@@ -2,17 +2,16 @@ class PostsController < ApplicationController
   before_action :set_target_post, only: [:show, :edit, :update, :destroy]
   PER = 8
   def index
-    if params[:search].present?
-      posts = Post.posts_search(params[:search])
-    elsif params[:tag_id].present?
+    @q = Post.ransack(params[:q])
+    if params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
-      posts = @tag.posts.order(created_at: :desc)
+      posts = @tag.posts
     else
-      posts = Post.all.order(created_at: :desc)
+      posts = @q.result(distinct: true)
     end
 
     @tag_lists = Tag.all
-    @posts = Kaminari.paginate_array(posts).page(params[:page]).per(PER)
+    @posts = Kaminari.paginate_array(posts.order(created_at: :desc)).page(params[:page]).per(PER)
   end
 
   def new
@@ -21,7 +20,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    # 半角or全角スペース区切りで真であれば、タグをtag_listに追加する
+    # 半角or全角スペース区切りで、タグとしてtag_listに追加する
     tag_list = params[:post][:name].split(/[[:blank:]]+/).select(&:present?)
     if @post.save
       @post.save_tags(tag_list)
