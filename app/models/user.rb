@@ -39,6 +39,9 @@ class User < ApplicationRecord
   has_many :follower_relationships, foreign_key: "following_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :follower_relationships
 
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+
   validates :name,
             presence: true,
             length: { maximum: 50 }
@@ -69,6 +72,18 @@ class User < ApplicationRecord
 
   def unfollow(user)
     following_relationships.find_by(following_id: user.id).destroy
+  end
+
+  def create_notification_follow!(current_user)
+    # フォロー済みか確認
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", current_user.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
   end
 
   private

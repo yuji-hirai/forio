@@ -8,6 +8,8 @@ class CommentsController < ApplicationController
     else
       redirect_to @post, alert: "#{@post.title}のコメントに失敗しました"
     end
+    # コメントすると、通知する
+    @post.create_notification_comment!(current_user, @comment.id)
   end
 
   def destroy
