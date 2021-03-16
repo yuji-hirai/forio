@@ -2,13 +2,13 @@
 <% notifications = @notifications.where.not(visitor_id: current_user.id)%>
 <% if notifications.exists? %>
   <%= link_to "通知全削除", notification_path(notifications), method: :delete %>
-  <% notifications.each do |notification|%>
+  <% notifications.each do |notification|%><br>
 
     <%= link_to user_path(notification.visitor) do %>
       <% if notification.visitor.avatar.attached? %>
         <%= image_tag notification.visitor.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
       <% else %>
-        <%= image_tag asset_path("default_user.png",:width =>'100', :height =>'100') %>
+        <%= image_tag "default_user.png", :size => "50x50"  %>
       <% end %>
       <strong>
         <%= notification.visitor.name %>
@@ -17,23 +17,27 @@
 
     <% case notification.action %>
     <% when 'follow' then %>
-      <p>あなたをフォローしました</p>
+      <i>あなたをフォローしました</i>
     <% when 'like' then %>
       <%= link_to 'あなたの投稿', notification.post, style: "font-weight: bold;" %>
-      <p>にいいねしました</p>
+      <i>にいいねしました</i>
     <% when 'comment' then %>
       <% if notification.post.user_id == notification.visited.id %>
         <%= link_to "あなたの投稿", notification.post, style: "font-weight: bold;" %>
       <% else %>
         <%= link_to post_path(notification.post) do %>
-          <%= image_tag notification.post.user.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
+          <% if notification.post.user.avatar.attached? %>
+            <%= image_tag notification.post.user.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
+          <% else %>
+            <%= image_tag asset_path("default_user.png",:width =>'100', :height =>'100') %>
+          <% end %>
           <strong>
             <%= notification.post.user.name + 'さんの投稿' %>
-            </strong>
-          <p> "にコメントしました"</p>
-          <%= Comment.find_by(id: notification.comment_id)&.content %>
+          </strong>
         <% end %>
       <% end %>
+      <i> にコメントしました</i>
+      <%= Comment.find_by(id: notification.comment_id)&.content %>
     <% end %>
 
     <%= time_ago_in_words(notification.created_at).upcase %>
