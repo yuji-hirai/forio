@@ -30,7 +30,7 @@ gem 'image_processing', '~> 1.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'kaminari'
 gem 'annotate'
-gem 'devise'
+gem 'devise', git: "https://github.com/heartcombo/devise.git", branch: "ca-omniauth-2"
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'mini_magick'
@@ -39,6 +39,11 @@ gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'ransack'
 gem 'actiontext'
+gem 'omniauth', '1.9.1'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,7 +69,7 @@ group :development do
   gem 'i18n_generators'
   gem 'better_errors'
   gem 'binding_of_caller'
-	  gem 'bullet'
+  gem 'bullet'
 end
 
 group :test do

@@ -8,9 +8,11 @@
 #  introduction           :text(65535)
 #  name                   :string(255)
 #  password               :string(255)
+#  provider               :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  uid                    :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -23,7 +25,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2]
   before_save :downcase_email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
@@ -41,15 +43,6 @@ class User < ApplicationRecord
 
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
-
-  validates :name,
-            presence: true,
-            length: { maximum: 50 }
-  validates :email,
-            presence: true,
-            length: { maximum: 255 },
-            format: { with: VALID_EMAIL_REGEX },
-            uniqueness: { case_sensitive: false }
 
   def liked_by?(post_id)
     likes.where(post_id: post_id).exists?
@@ -83,6 +76,14 @@ class User < ApplicationRecord
         action: 'follow'
       )
       notification.save if notification.valid?
+    end
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
     end
   end
 

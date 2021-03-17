@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {
-  :registrations => 'users/registrations',
-  :sessions => 'users/sessions'
+  root "home#top"
+  get 'likes/index' => 'likes#index'
+  post 'like/:id' => 'likes#create', as: 'create_like'
+  delete 'like/:id' => 'likes#destroy', as: 'destroy_like'
+
+  devise_for :users, controllers: {
+  registrations: 'users/registrations',
+  sessions: 'users/sessions',
+  omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   devise_scope :user do
@@ -22,8 +28,5 @@ Rails.application.routes.draw do
     resources :comments, :only => [:create, :destroy]
   end
 
-  root "home#top"
-  get 'likes/index' => 'likes#index'
-  post 'like/:id' => 'likes#create', as: 'create_like'
-  delete 'like/:id' => 'likes#destroy', as: 'destroy_like'
+
 end

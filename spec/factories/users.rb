@@ -8,9 +8,11 @@
 #  introduction           :text(65535)
 #  name                   :string(255)
 #  password               :string(255)
+#  provider               :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  uid                    :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
