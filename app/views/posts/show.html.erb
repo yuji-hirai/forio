@@ -27,29 +27,17 @@
 </div>
 
 <%# コメント機能 %>
-<%  unless current_user.id == @post.user.id %>
-  <%= form_with model: [@post, @comment], local: true do |f| %>
-    <%= f.label :content, 'コメント' %>
-    <%= f.text_area :content, size: "40x5" %>
-    <%= f.submit '送信', class: "btn-sm btn-primary" %>
-  <% end %>
-<% end %>
-<table>
-  <thead>
-    <tr>
-      <th>コメント投稿者</th>
-      <th>コメント内容</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td><%= comment.user.name %></td>
-        <td><%= comment.content %></td>
-        <% if @post.user_id == current_user.id %>
-          <td><%= link_to "削除", post_comment_path(@post, comment), method: :delete %></td>
-        <% end %>
-      </tr>
-  </tbody>
-  <% end %>
-</table>
+<div class="row">
+  <ul>
+    <li class="comment-create">
+      <h3 class="text-left title">コメント欄</h3>
+    </li>
+    <li id="comments_area">
+      <%= render partial: 'comments/index', locals: { comments: @comments } %>
+    </li>
+  </ul>
+  <div class="comment-create">
+    <h3 class="text-left">コメントする</h3>
+    <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
+  </div>
+</div>

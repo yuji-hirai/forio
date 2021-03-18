@@ -1,0 +1,7 @@
+<%  unless current_user.id == post.user.id %>
+  <%= form_with model: [post, comment], url: post_comments_path(post) do |f| %>
+    <%= f.label :content, 'コメント' %>
+    <%= f.text_area :content, size: "40x5" %>
+    <%= f.submit '送信', class: "btn-sm btn-primary" %>
+  <% end %>
+<% end %>
