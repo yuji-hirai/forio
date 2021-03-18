@@ -5,8 +5,14 @@ Rails:
   Enabled: true
 
   # 文字数上限
-LineLength:
+Metrics/LineLength:
   Max: 130
+
+# メソッドの行数
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
 
 #ここにはrubocopで検証したくないファイルやフォルダを指定
 AllCops:
