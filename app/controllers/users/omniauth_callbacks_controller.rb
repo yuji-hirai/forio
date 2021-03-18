@@ -18,11 +18,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # common callback method
   def callback_for(provider)
-    # 先ほどuser.rbで記述したメソッド(from_omniauth)をここで使っています
-    # 'request.env["omniauth.auth"]'この中にgoogoleアカウントから取得したメールアドレスや、名前と言ったデータが含まれています
+    # 'request.env["omniauth.auth"]'この中にSNSアカウントから取得したメールアドレスや、名前が含まれる
     @user = User.from_omniauth(request.env["omniauth.auth"])
-    sign_in_and_redirect @user, event: :authentication
-    set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
+    if @user.persisted?
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
+    else
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
+      redirect_to new_user_registration_url
+    end
   end
 
   def failure
