@@ -1,12 +1,15 @@
 class CommentsController < ApplicationController
   before_action :set_target_post, only: [:create, :destroy]
+
   def create
     @comment = @post.comments.new(comment_params)
-
+    @comment.user_id = current_user.id
     if @comment.save
-      redirect_to @post, notice: "#{@post.title}にコメントしました"
+      flash.now[:notice] = "#{@post.title}にコメントしました"
+      render :index
     else
-      redirect_to @post, alert: "#{@post.title}のコメントに失敗しました"
+      flash.now[:alert] = "#{@post.title}のコメントに失敗しました"
+      render :index
     end
     # コメントすると、通知する
     @post.create_notification_comment!(current_user, @comment.id)
@@ -15,7 +18,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to @post, alert: "#{@post.title}コメントを削除しました"
+    flash.now[:alert] = "#{@post.title}コメントを削除しました"
+    render :index
   end
 
   private
@@ -25,6 +29,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:post_id, :content, :image).merge(user_id: current_user.id)
+    params.require(:comment).permit(:post_id, :user_id, :content, :image)
   end
 end
