@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :introduction, :avatar])
   end
 
-  # The path used after sign up.
+  # 新規登録後のパスを指定
   def after_sign_up_path_for(resource)
     posts_path
   end
@@ -63,5 +63,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # 更新後のパスを指定
   def after_update_path_for(resource)
     user_path(id: current_user.id)
+  end
+
+  # プロフィール変更時現在のパスワード要求しない
+  def update_resource(resource, params)
+    resource.update_without_password(params)
   end
 end
