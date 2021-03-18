@@ -1,0 +1,56 @@
+<p>タグで探す</p>
+<ul>
+  <%= link_to '全投稿', posts_path %>
+  <% @tag_lists.each  do |list| %>
+    <% if list.posts.present? %>
+      <%= link_to "##{list.name}", posts_path(tag_id: list.id) %>
+      <span><%= "(#{list.posts.count})" %></span>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= search_form_for @q do |f| %>
+  <%= f.label :title_or_body_or_tags_name_or_user_name, "キーワード検索" %>
+  <%= f.search_field :title_or_body_or_tags_name_or_user_name_cont, placeholder: '検索ワード' %>
+  <%= f.submit "検索" %>
+<% end %>
+
+<table class="table table-bordered border-primary table-hover table-sm posts_table">
+  <thead class="thead-dark">
+    <tr>
+      <th colspan="2" scope="col" >投稿タイトル</th>
+      <th scope="col">いいね</th>
+      <th scope="col">タグ</th>
+      <th scope="col">投稿者</th>
+      <th scope="col">コメント数</th>
+      <th scope="col">投稿日</th>
+      <th scope="col">更新日時</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= post.title %></td>
+          <td>
+            <% if post.images.attached? %>
+              <%= image_tag post.images.first.variant(resize_to_limit: [100, 100]).processed %>
+            <% end %>
+          </td>
+          <td id="post_<%= post.id %>"><%= render 'post', post: post %></td>
+          <td>
+          <% post.tags.each do |tag| %>
+            <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) %>
+          <% end %>
+          </td>
+          <td><%= link_to  "#{post.user.name}" , user_path(post.user.id) %></td>
+          <td><%= post.comments.count %></td>
+          <td><%= l post.created_at %></td>
+          <td><%= l post.updated_at %></td>
+          <td><%= link_to '詳細', post, id: "detail-" + post.id.to_s, class: 'btn btn-outline-info' %></td>
+          <td><%= link_to "削除" , post, class: 'btn btn-outline-info', method: :delete %></td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<%= paginate @posts %>
