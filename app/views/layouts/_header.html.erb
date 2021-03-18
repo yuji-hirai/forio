@@ -1,0 +1,42 @@
+<header>
+  <% if user_signed_in? %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="navbar-brand text-dark" >
+        <%= link_to 'TOP', root_path %>
+      </div>
+      <div><%= current_user.name %>さん</div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+          <div class="nav-link text-dark" >
+            <%= link_to '投稿', new_post_path, class: 'btn btn-outline-info' %>
+          </div>
+          <div class="nav-link text-dark" >
+            <%= link_to '投稿一覧', posts_path %>
+          </div>
+          <div class="nav-link text-dark" >
+            <%= link_to 'いいねした投稿一覧', likes_index_path %>
+          </div>
+          <div class="nav-link text-dark" >
+            <%= link_to   notifications_path do %>
+              <%= render "shared/circle" %>
+            <% end %>
+          </div>
+          <div class="nav-link text-dark" >
+            <%= link_to 'プロフィール', user_path(id: current_user.id) %>
+          </div>
+          <div class="nav-link text-dark" >
+            <%= link_to 'プロフィール変更', edit_user_registration_path %>
+          </div>
+          <div class="nav-link text-dark" >
+            <%= link_to "ログアウト", sign_out_path %>
+          </div>
+        </div>
+      </div>
+    </nav>
+  <% end %>
+</header>
+
+
