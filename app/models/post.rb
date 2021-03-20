@@ -35,6 +35,14 @@ class Post < ApplicationRecord
             presence: true,
             length: { maximum: 1000 }
 
+  before_create :default_image
+
+  def default_image
+    if !self.images.attached?
+      self.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default_title.png')), filename: 'default_title.png', content_type: 'image/png')
+    end
+  end
+
   def save_tags(tags)
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
     old_tags = current_tags - tags

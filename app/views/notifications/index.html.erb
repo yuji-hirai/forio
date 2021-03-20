@@ -1,4 +1,5 @@
 <%# 自分の投稿に対するいいね、コメントは通知に表示しない %>
+
 <% notifications = @notifications.where.not(visitor_id: current_user.id).order(created_at: :desc)%>
 <% if notifications.exists? %>
   <%= link_to "通知全削除", notification_path(notifications), method: :delete %>
@@ -40,11 +41,8 @@
       <i> にコメントしました</i>
       <%= Comment.find_by(id: notification.comment_id)&.content %>
     <% end %>
-
     <%= time_ago_in_words(notification.created_at).upcase %>
   <% end %>
-
-  <%= paginate notifications %>
 <% else %>
   <p>通知はありません</p>
 <% end %>

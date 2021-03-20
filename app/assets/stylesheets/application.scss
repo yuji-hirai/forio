@@ -1,4 +1,3 @@
-
 /*
 * This is a manifest file that'll be compiled into application.css, which will include all the files
 * listed below.
@@ -15,19 +14,81 @@
 *= require_self
 */
 
-$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
-@import '@fortawesome/fontawesome-free/scss/fontawesome';
-@import '@fortawesome/fontawesome-free/scss/solid';
-@import '@fortawesome/fontawesome-free/scss/regular';
-@import '@fortawesome/fontawesome-free/scss/brands';
-@import '@fortawesome/fontawesome-free/scss/v4-shims';
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/solid";
+@import "@fortawesome/fontawesome-free/scss/regular";
+@import "@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/scss/v4-shims";
 
+/*まずはお決まりのボックスサイズ算出をborer-boxに */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+a:hover{
+  text-decoration: none!important;
+  opacity: 0.7;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+
+//header----------------------
+
+header{
+  background-color: rgb(191, 191, 191);
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+header nav.navbar{
+  color: #212529;
+}
+.user-name-header{
+  color: white;
+}
+
+.nav-link a{
+  color: white!important;
+  text-decoration: none;
+}
+
+
+//いいね----------------------
 .like-link {
   text-decoration: none;
 }
 
 .like-link:hover {
-  background-color: #fff!important;
+  background-color: #fff !important;
 }
 
 .like-btn {
@@ -40,34 +101,123 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
   color: #e54747;
 }
 
+//アラート----------------------
 .alert {
-	text-align: center;
+  text-align: center;
 }
 .alert-info {
-    background-color: #bde9ff;
-    border-color: #bde9ff;
-    color: #4c6977;
+  background-color: #bde9ff;
+  border-color: #bde9ff;
+  color: #4c6977;
 }
 
 .alert-warning {
-    background-color: #f3c0c0;
-    border-color: #f3c0c0;
-    color: #3e3a3a;
+  background-color: #f3c0c0;
+  border-color: #f3c0c0;
+  color: #3e3a3a;
 }
 
-/*ページネーション自体のデザイン*/
+//ページネーション----------------------
 .pagination {
   justify-content: center;
 }
-.pagination>li>a {
+.pagination > li > a {
   border: none;
   color: #696969;
 }
 
-.pagination>.active>a {
+.pagination > .active > a {
   background: #93c9ff;
 }
-.post_image_index{
+.post_image_index {
   width: 100%;
   height: 250px;
 }
+.nav-link.dropdown-toggle {
+  margin-right: 30px;
+}
+
+//タグ----------------------
+.all-posts {
+  margin-bottom: 10px;
+}
+.posts-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 0;
+  li {
+    display: inline-block;
+  }
+}
+a.btn-gradient {
+  margin: 0 10px 10px 0;
+  color: rgb(150, 139, 139);
+  background-image: -webkit-linear-gradient(110deg, #e9defa 0%, #fbfcdb 100%);
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  font-size: 10px;
+}
+
+a.btn-gradient:hover {
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+// 検索フォーム-----------------
+.search-form{
+  margin: 30px 0;
+
+}
+
+//カード----------------------
+
+.card-content.comment{
+  margin:0;
+}
+
+.card-box-overlapping .card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.card-box-overlapping .card p.image {
+  margin: -10px -10px 0;
+}
+
+.card-box-overlapping .card p.image .post_image_index {
+  vertical-align: top;
+}
+
+.card-box-overlapping .card p.text {
+  margin: 10px 0 0;
+}
+.card-box-overlapping .card {
+  box-shadow: 10px 10px 0 #ccc;
+  transform: translate(-4.5px, -4.5px);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.card-box-overlapping .card:hover {
+  box-shadow: 1px 1px 0 #ccc;
+  transform: initial;
+}
+
+.content-muted {
+  color: #b3afaf;
+  margin: 0;
+}
+.card-body{
+  color: #212529;
+  .heart{
+    margin: 10px 0 0 0;
+  }
+}
+
+.card-content.comment:hover {
+  opacity: 0.5;
+}
+

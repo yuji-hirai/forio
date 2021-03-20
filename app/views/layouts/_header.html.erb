@@ -1,39 +1,37 @@
 <header>
   <% if user_signed_in? %>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex bd-highlight">
-      <div class="navbar-brand text-dark p-2 flex-fill bd-highlight" >
+    <nav class="navbar navbar-light">
+      <div class="navbar-brand flex-fill" >
         <%= link_to  root_path do %>
-          <%= image_tag "title.png", :size => "120x60"  %>
+          <%= image_tag "title.png", :size => "130x50"  %>
         <% end %>
       </div>
-      <div class="nav-link text-dark p-2 flex-fill bd-highlight"><%= current_user.name %>さん</div>
+      <div class="flex-fill user-name-header"><%= current_user.name %>さん</div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav p-2 flex-fill bd-highlight d-flex justify-content-end">
-          <li class="nav-link text-dark" ><a href="<%= new_post_path %>">
+        <div class="navbar  flex-fill d-flex justify-content-end">
+          <li class="nav-link" ><a href="<%= new_post_path %>">
             <i class="fas fa-pen"></i> 投稿</a>
           </li>
-          <li class="nav-link text-dark" ><a href="<%= posts_path %>">
+          <li class="nav-link" ><a href="<%= posts_path %>">
             <i class="far fa-newspaper"></i> 記事一覧</a>
           </li>
-          <li class="nav-link text-dark" ><a href="<%= likes_index_path %>">
-            <i class="fas fa-heart header-icons"></i> いいねした記事</a>
+          <li class="nav-link" ><a href="<%= likes_index_path %>">
+            <i class="fas fa-heart header-icons"></i> いいね一覧</a>
           </li>
-          <li class="nav-link text-dark"><a href="<%= notifications_path %>">
+          <li class="nav-link"><a href="<%= notifications_path %>">
             <i class="fas fa-bell"></i> 通知
             <% if unchecked_notifications.any? %>
-              <span class="badge badge-warning"> 新着</span>
+              <span class="badge rounded-pill bg-warning text-dark"> 新着</span>
             <% end %>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マイメニュー</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="<%= user_path(id: current_user.id) %>">プロフィール</a></a>
-              <a class="dropdown-item" href="<%= edit_user_registration_path %>">プロフィール変更</a></a>
-              <a class="dropdown-item" href="<%= sign_out_path %>">ログアウト</a>
-            </div>
+          <li class="nav-link" ><a href="<%= user_path(id: current_user.id) %>">
+            <i class="far fa-address-card"></i> プロフィール</a>
+          </li>
+          <li class="nav-link" ><a href="<%= sign_out_path %>">
+            <i class="fas fa-sign-out-alt"></i> ログアウト</a>
           </li>
         </div>
       </div>

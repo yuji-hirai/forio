@@ -1,8 +1,10 @@
 class LikesController < ApplicationController
   before_action :post_params, only: [:create, :destroy]
-
+  PER = 9
   def index
-    @like_posts = current_user.like_posts.includes([:user])
+    @tag_lists = Tag.all.includes(:posts)
+    like_posts = current_user.like_posts
+    @like_posts = Kaminari.paginate_array(like_posts.includes({ post_tags: :tag }, :user).with_attached_images.order(created_at: :desc)).page(params[:page]).per(PER)
   end
 
   def create

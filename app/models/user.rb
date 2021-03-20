@@ -29,7 +29,7 @@ class User < ApplicationRecord
 
   before_save :downcase_email
 
-	has_rich_text :introduction
+  has_rich_text :introduction
   has_one_attached :avatar
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -55,6 +55,14 @@ class User < ApplicationRecord
             length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
+
+  before_create :default_image
+
+  def default_image
+    if !self.image.attached?
+      self.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default_user.png')), filename: 'default_user.png', content_type: 'image/png')
+    end
+  end
 
   def liked_by?(post_id)
     likes.where(post_id: post_id).exists?
