@@ -1,5 +1,5 @@
 <!-- コメント内容(２件) ---------->
-<%= comments.size %>件コメント
+<%= comments.count %>件コメント
 <h6 class="more" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">もっと見る....</h6>
 <% comments.first(2).each do |comment| %>
   <% unless comment.id.nil? %>

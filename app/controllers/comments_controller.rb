@@ -6,10 +6,10 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     if @comment.save
       flash.now[:notice] = "#{@post.title}にコメントしました"
-      render :index
+      render 'comment_ajax.js.erb'
     else
       flash.now[:alert] = "#{@post.title}のコメントに失敗しました"
-      render :index
+      render "comments/index"
     end
     # コメントすると、通知する
     @post.create_notification_comment!(current_user, @comment.id)
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash.now[:alert] = "#{@post.title}コメントを削除しました"
-    render :index
+    render 'comment_ajax.js.erb'
   end
 
   private

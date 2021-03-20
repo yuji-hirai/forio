@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_target_post, only: [:show, :update, :destroy]
-  PER = 8
+  PER = 9
   def index
-    @q = Post.includes(:tags).ransack(params[:q])
+    @q = Post.includes(:tags,:rich_text_body).ransack(params[:q])
     if params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
       posts = @tag.posts
@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+		@post.user_id = current_user.id
     # 半角or全角スペース区切りで、タグとしてtag_listに追加する
     tag_list = params[:post][:name].split(/[[:blank:]]+/).select(&:present?)
     if @post.save

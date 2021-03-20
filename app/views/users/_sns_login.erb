@@ -1,0 +1,14 @@
+<div class="btn-wrapper my-4 text-center">
+  <div class="btn-block btn btn-fb btn-sm  px-5 " >
+    <%= link_to user_facebook_omniauth_authorize_path(provider: :facebook) do %>
+      <i class="fab fa-facebook-square fa-3x"></i>
+    <% end %>
+
+    <%= link_to user_twitter_omniauth_authorize_path(provider: :twitter) do %>
+      <i class="fab fa-twitter-square fa-3x"></i>
+    <% end %>
+
+    <%= link_to user_google_oauth2_omniauth_authorize_path(provider: :google_oauth2) do %>
+      <i class="fab fa-google fa-3x"></i>
+    <% end %>
+  </div>
