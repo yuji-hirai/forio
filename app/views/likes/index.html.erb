@@ -1,30 +1,52 @@
-<div class="d-flex align-items-center">
-    <div class="ml-auto posts_button">
-      <%= link_to '投稿', new_post_path, class: 'btn btn-outline-info' %>
-    </div>
-</div>
-<table class="table table-bordered border-primary table-hover table-sm posts_table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col" style="width: 150px">投稿タイトル</th>
-      <th scope="col">いいね</th>
-      <th scope="col">投稿者</th>
-      <th scope="col">投稿日</th>
-      <th scope="col">更新日時</th>
-    </tr>
-  </thead>
-  <tbody>
-      <% @like_posts.each do |post| %>
-        <tr>
-          <td><%= post.title %></td>
-          <td id="post_<%= post.id %>"><%= render 'posts/post', post: post %><td>
-          <td><%= post.user.name %></td>
-          <td><%= l post.created_at %></td>
-          <td><%= l post.updated_at %></td>
-          <td><%= link_to '詳細', post, id: "detail-" + post.id.to_s, class: 'btn btn-outline-info' %></td>
-          <td><%= link_to "削除" , post, class: 'btn btn-outline-info', method: :delete %></td>
-        </tr>
-
+<div class="container">
+<p>いいねした一覧</p>
+  <!--タグ-->
+  <div class="container ">
+    <ul class="posts-tags">
+      <%= link_to '全投稿', posts_path,class: "btn btn-gradient all-posts" %>
+      <% @tag_lists.each  do |list| %>
+        <% if list.posts.present? %>
+          <li class="button">
+          <%= link_to "##{list.name}  (#{list.posts.count})", posts_path(tag_id: list.id),class: "btn btn-gradient" %>
+          </li>
+        <% end %>
       <% end %>
-  </tbody>
-</table>
+    </ul>
+  </div>
+  <!--投稿一覧-->
+  <div class="container" id="works">
+    <div class="row">
+      <% @like_posts.each do |post| %>
+        <div class="col-md-6 col-xl-4 col-12 my-3 card-box-overlapping">
+          <div class="card">
+            <p class="image">
+              <%= link_to post do %>
+                <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+              <% end %>
+            </p>
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <ul class="posts-tags">
+                  <% post.tags.each do |tag| %>
+                    <li class="button">
+                      <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
+                    </li>
+                  <% end %>
+              </ul>
+              <div>
+                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed%>
+                <%= link_to "#{post.user.name}" , user_path(post.user.id) %>
+              </div>
+              <p class="heart" id="post_<%= post.id %>">
+                <%= render 'posts/post', post: post %>
+              </p>
+              <p class="card-content comment"><%= "コメント #{post.comments.count}件" %>
+              <p class="content-muted"><small class="content-muted"><%= l post.created_at %></small></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= paginate @like_posts %>
+</div>
