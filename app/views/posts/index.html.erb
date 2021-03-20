@@ -27,7 +27,11 @@
           <div class="card">
             <p class="image">
               <%= link_to post do %>
-                <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+                <% if post.images.attached? %>
+                  <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+                <% else %>
+                  <%= image_tag "title.png",class:"post_image_index" %>
+                <% end %>
               <% end %>
             </p>
             <div class="card-body">

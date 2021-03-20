@@ -4,7 +4,7 @@
 <% if notifications.exists? %>
   <%= link_to "通知全削除", notification_path(notifications), method: :delete %>
 
-  <% notifications.each do |notification|%><br>
+  <% notifications.each do |notification|%>
     <%= link_to user_path(notification.visitor) do %>
       <% if notification.visitor.avatar.attached? %>
         <%= image_tag notification.visitor.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>

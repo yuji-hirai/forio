@@ -56,14 +56,6 @@ class User < ApplicationRecord
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
-  before_create :default_image
-
-  def default_image
-    if !self.image.attached?
-      self.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default_user.png')), filename: 'default_user.png', content_type: 'image/png')
-    end
-  end
-
   def liked_by?(post_id)
     likes.where(post_id: post_id).exists?
   end
