@@ -1,53 +1,79 @@
-<h2>プロフィール編集</h2>
+<%= render "users/shared/error_messages", resource: resource %>
 
 <%= form_with model: resource, scope: resource_name, url:registration_path(resource_name), id: 'new_user', class: 'new_user', local: true, method: :put do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <section class="min-vh-100 d-flex align-items-center section-image overlay-soft-dark">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+          <div class="signin-inner my-4 my-lg-0 bg-white shadow-soft border rounded border-gray-300 p-4 p-lg-5 w-100 fmxw-500">
+            <div class="text-center text-md-center mb-4 mt-md-0">
+              <h1 class="mb-0 h3">プロフィール編集</h1>
+            </div>
+            <form action="#">
+              <div class="form-group mb-3">
+                <%= f.label :name %>
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon3"><span class="fas fa-file-signature"></span></span>
+                  <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: "name", :required => true %>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <%= f.label :email %>
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon3"><span class="fas fa-envelope"></span></span>
+                  <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "example@company.com", :required => true %>
+                </div>
+              </div>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+              <div class="form-group mb-3">
+                <%= f.label :password %>
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
+                    <%= f.password_field :password, class: 'form-control', placeholder: "#{ @minimum_password_length } characters minimum(パスワードを変更しない場合は、未記入)" %>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <%= f.label :password_confirmation %>
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon5"><span class="fas fa-unlock-alt"></span></span>
+                  <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "confirm password" %>
+                </div>
+              </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+              <div class="form-group mb-3">
+                <%= f.label :introduction %>
+                <div class="input-group">
+                  <%= f.rich_text_area :introduction, autofocus: true, class: 'form-control', placeholder: "自己紹介文", :required => true %>
+                </div>
+              </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+              <div class="form-group mb-5">
+                <%= f.label :images, '画像' %>
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon3"><span class="fas fa-images"></span></span>
+                  <%= f.file_field :images, multiple: true, autofocus: true, class: 'form-control',placeholder: "画像を添付" %>
+                </div>
+              </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(パスワードを変更しない場合は、未記入)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em>最低限文字数:<%= @minimum_password_length %>文字</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :introduction, "自己紹介文" %><br />
-    <%= f.text_area :introduction, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :avatar, "プロフィール画像" %><br />
-    <%= f.file_field :avatar, autofocus: true %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary mx-5">更新</button>
+              </div>
+            </form>
+            <div class="mt-3 mb-4 text-center">
+              <span class="fw-normal">or</span>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+              <span class="fw-normal">
+                <%= button_to "アカウント削除", registration_path(resource_name),class:"btn btn-warning btn-sm", data: { confirm: "本当に削除しますか？" }, method: :delete %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 <% end %>
-
-<h3>アカウントを削除</h3>
-
-<p> <%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "本当に削除しますか？" }, method: :delete %></p>
 
 <%= link_to "戻る", :back %>

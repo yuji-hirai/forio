@@ -14,6 +14,7 @@
 *= require_tree .
 *= require_self
 */
+
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 @import '@fortawesome/fontawesome-free/scss/solid';
@@ -37,4 +38,36 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 .unlike-btn {
   font-size: 15px;
   color: #e54747;
+}
+
+.alert {
+	text-align: center;
+}
+.alert-info {
+    background-color: #bde9ff;
+    border-color: #bde9ff;
+    color: #4c6977;
+}
+
+.alert-warning {
+    background-color: #f3c0c0;
+    border-color: #f3c0c0;
+    color: #3e3a3a;
+}
+
+/*ページネーション自体のデザイン*/
+.pagination {
+  justify-content: center;
+}
+.pagination>li>a {
+  border: none;
+  color: #696969;
+}
+
+.pagination>.active>a {
+  background: #93c9ff;
+}
+.post_image_index{
+  width: 100%;
+  height: 250px;
 }
