@@ -1,8 +1,24 @@
-<% @users.each do |user| %>
-<table>
-<tr>
-  <td>  <%= user.name %> </td>
-  <td><%= link_to '詳細', user_path(user) %></td>
-</tr>
-</table>
-<% end %>
+<h4 class=" follow title">フォロワーユーザー一覧</h4>
+<div class="container follow">
+  <% @users.each do |user| %>
+    <%= link_to  user_path(user)  do%>
+      <div class="card-follow-wrapper">
+        <div class="card-follow-front">
+          <div class="card-follow-user">
+            <% if user.avatar.attached? %>
+              <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]).processed %>
+            <% else %>
+              <%= image_tag "default_user.png" %>
+            <% end %>
+            <span><i>name</i><%= user.name %></span>
+            <div class="user-info">
+              <span>投稿<b><%= user.posts.count %></b></span>
+              <span>フォロワー<b><%= user.followers.count %></b></span>
+              <span>フォロー<b><%= user.following.count %></b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

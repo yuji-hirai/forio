@@ -28,12 +28,27 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
   -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
-a:hover{
-  text-decoration: none!important;
+
+
+.a-black a{
+  color: black;
+  text-decoration: none;
+}
+.a-black a:hover{
+  color: black;
+  text-decoration: none;
   opacity: 0.7;
 }
-a{
-  text-decoration: none!important;
+
+#a-write a{
+  color: white;
+  text-decoration: none;
+}
+
+#a-write a:hover{
+color: white;
+  text-decoration: none;
+  opacity: 0.7;
 }
 
 html {
@@ -80,7 +95,7 @@ header nav.navbar{
 }
 
 .nav-link a{
-  color: white!important;
+  color: white;
   text-decoration: none;
 }
 
@@ -88,10 +103,6 @@ header nav.navbar{
 //いいね----------------------
 .like-link {
   text-decoration: none;
-}
-
-.like-link:hover {
-  background-color: #fff !important;
 }
 
 .like-btn {
@@ -220,9 +231,20 @@ a.btn-gradient:hover {
   }
 }
 
+#heading-title {
+  margin: 10px 0 0 0 ;
+  padding-left: 0.5em;
+  font-size: 1.5em;
+  color: #333;
+  border-left: 4px solid #eebbf0;
+}
+
 
 // 通知
 .notification{
+  .title{
+  text-align: center
+  }
   .trash a{
   color: #808385!important;
   }
@@ -236,7 +258,190 @@ a.btn-gradient:hover {
   }
 }
 img.icon_mini {
+  margin-bottom: 5px;
   width: 40px;
   height: 40px;
   border-radius: 20px;
+}
+
+/* Font Awesomeを使用しています。*/
+.form2 {
+  position: relative;
+}
+
+.form2-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  padding: 0 10px 0 34px;
+  margin: 5px 0;
+  font-size: 1em;
+  color: #333;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  outline: 0;
+  transition: 0.3s;
+  -webkit-appearance: none;
+}
+
+.form2-input:focus {
+  border: 1px solid #00b5ad;
+}
+
+.form2-button {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  box-sizing: content-box;
+  width: 30px;
+  height: 40px;
+  padding: 0;
+  vertical-align: vertical-align;
+  pointer-events: none;
+  background: inherit;
+  border: 0;
+  opacity: 0.54;
+}
+
+// フォロー一覧----------------------
+
+img{
+  display:block;
+}
+
+
+
+// いいね一覧----------------------
+.follow.title{
+  text-align: center
+  }
+.container.follow{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 60px auto;
+  padding: 0 50px;
+  max-width: 1100px;
+  transition: all 0.3s ease 0s;
+  a:hover {
+  box-shadow: 0 8px 12px 0 rgba(60, 14, 14, 0.25);
+  transform: translateY(-0.1875em);
+  opacity: 0.8;
+}
+  a ,.card-follow-wrapper{
+    position:relative;
+    height:220px;
+    width: 240px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+}
+
+
+.card-follow-front{
+  position:absolute;
+  width:100%;
+  border-radius:0.55em;
+  background: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 50%, #fbf2f2 100%);
+}
+
+.card-follow-user{
+    padding-top: 15px;
+  img{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    margin: 0 auto;
+    border:2px solid #fff;
+  }
+}
+
+.card-follow-user span{
+  font-size:22px;
+  text-align:center;
+  display:block;
+  margin-top:10px;
+  color:#fff;
+}
+
+.card-follow-user span>i{
+  display:block;
+  font-size:16px;
+}
+
+.user-info{
+  display:flex;
+  flex-wrap:nowrap;
+  padding:10px 5px;
+}
+
+.user-info span{
+  flex:1;
+  font-size:14px;
+}
+
+.user-info span>b{
+  display:block;
+}
+
+// プロフィール一覧----------------------
+.icon-big{
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.card-icon{
+  text-align: center;
+  p{
+    font-size: 20px;
+    margin: 20px auto;
+  }
+}
+
+.profile  h4.title{
+  text-align: center
+  }
+
+.card.profile{
+  border-radius:0.7em;
+  background: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 50%, #fbf2f2 100%);
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+
+#button-fill {
+  position: relative;
+  display: inline-block;
+  padding:5px 10px;
+  font-size: 0.8em;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  user-select: none;
+  border: 1px #f3e5476d solid;
+  box-shadow: inset #f3e5476d 0 0 0 0;
+  transition: 0.3s;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  margin-bottom: 0;
+}
+#button-fill p{
+  margin-bottom: 0;
+}
+
+
+#button-fill:hover{
+  color: black;
+  box-shadow: inset #f3e5476d 0 0 0 2em;
+  opacity: 1;
+}
+
+.follow_flex,#follow_form{
+display: flex;
+justify-content: space-between;
 }

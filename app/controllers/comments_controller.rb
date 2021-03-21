@@ -4,13 +4,15 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.new(comment_params)
     @comment.user_id = current_user.id
-    if @comment.save
-      flash.now[:notice] = "#{@post.title}にコメントしました"
-      render 'comment_ajax.js.erb'
-    else
-      flash.now[:alert] = "#{@post.title}のコメントに失敗しました"
-      render "comments/index"
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @post }
+        format.js { render 'comment_ajax.js.erb' }
+      else
+        format.html { redirect_to @post }
+      end
     end
+
     # コメントすると、通知する
     @post.create_notification_comment!(current_user, @comment.id)
   end
@@ -18,8 +20,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    flash.now[:alert] = "#{@post.title}コメントを削除しました"
-    render 'comment_ajax.js.erb'
+    render "comments/comment_ajax.js.erb"
   end
 
   private
