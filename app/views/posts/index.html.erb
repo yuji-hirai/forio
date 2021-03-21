@@ -24,7 +24,7 @@
     <div class="row">
       <% @posts.each do |post| %>
         <div class="col-md-6 col-xl-4 col-12 my-3 card-box-overlapping">
-          <div class="card">
+          <div class="card h-100">
             <p class="image">
               <%= link_to post do %>
                 <% if post.images.attached? %>
@@ -44,7 +44,11 @@
                   <% end %>
               </ul>
               <div>
-                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed%>
+                <% if post.user.avatar.attached? %>
+                  <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>
+                <% else %>
+                  <%= image_tag "default_user.png", class: "icon_mini" %>
+                <% end %>
                 <%= link_to "#{post.user.name}" , user_path(post.user.id) %>
               </div>
               <p class="heart" id="post_<%= post.id %>">

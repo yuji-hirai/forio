@@ -1,48 +1,59 @@
 <%# 自分の投稿に対するいいね、コメントは通知に表示しない %>
-
 <% notifications = @notifications.where.not(visitor_id: current_user.id).order(created_at: :desc)%>
-<% if notifications.exists? %>
-  <%= link_to "通知全削除", notification_path(notifications), method: :delete %>
-
-  <% notifications.each do |notification|%>
-    <%= link_to user_path(notification.visitor) do %>
-      <% if notification.visitor.avatar.attached? %>
-        <%= image_tag notification.visitor.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
-      <% else %>
-        <%= image_tag "default_user.png", :size => "50x50"  %>
+<div class="container notification">
+  <% if notifications.exists? %>
+    <p class="mb-3 mx-auto trash" style="max-width: 540px;">
+      <%= link_to  notification_path(notifications), method: :delete  do %>
+        <i class="fas fa-trash"></i>通知全削除
       <% end %>
-      <strong>
-        <%= notification.visitor.name %>
-      </strong>
-      <i>さんが</i>
-    <% end %>
+    </p>
+    <% notifications.each do |notification|%>
+      <div class="card mb-3 mx-auto" style="max-width: 540px;">
 
-    <% case notification.action %>
-    <% when 'follow' then %>
-      <i>あなたをフォローしました</i>
-    <% when 'like' then %>
-      <%= link_to 'あなたの投稿', notification.post, style: "font-weight: bold;" %>
-      <i>にいいねしました</i>
-    <% when 'comment' then %>
-      <% if notification.post.user_id == notification.visited.id %>
-        <%= link_to "あなたの投稿", notification.post, style: "font-weight: bold;" %>
-      <% else %>
-        <%= link_to post_path(notification.post) do %>
-          <% if notification.post.user.avatar.attached? %>
-            <%= image_tag notification.post.user.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
-          <% else %>
-            <%= image_tag "default_user.png", :size => "50x50" %>
-          <% end %>
-          <strong>
-            <%= notification.post.user.name + 'さんの投稿' %>
-          </strong>
-        <% end %>
-      <% end %>
-      <i> にコメントしました</i>
-      <%= Comment.find_by(id: notification.comment_id)&.content %>
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to user_path(notification.visitor) do %>
+                <% if notification.visitor.avatar.attached? %>
+                  <%= image_tag notification.visitor.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
+                <% else %>
+                  <%= image_tag "default_user.png", class: "icon_mini" %>
+                <% end %>
+                <strong>
+                  <%= notification.visitor.name %>
+                </strong>さんが
+              <% end %>
+            </h5>
+            <p class="card-text">
+              <% case notification.action %>
+              <% when 'follow' then %>
+                <i>あなたをフォローしました</i>
+                <i class="far fa-handshake fa-2x right"></i>
+              <% when 'like' then %>
+                <%= link_to 'あなたの投稿にいいねしました', notification.post %>
+                <i class="fas fa-heart fa-2x right" style="color:red"></i>
+              <% when 'comment' then %>
+                <% if notification.post.user_id == notification.visited.id %>
+                  <%= link_to "あなたの投稿にコメントしました", notification.post %>
+                <% else %>
+                  <%= link_to post_path(notification.post) do %>
+                    <% if notification.post.user.avatar.attached? %>
+                      <%= image_tag notification.post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini" %>
+                    <% else %>
+                      <%= image_tag "default_user.png", class: "icon_mini" %>
+                    <% end %>
+                      <%= notification.post.user.name + 'さんの投稿にコメントしました' %>
+                  <% end %>
+                <% end %>
+                <i class="far fa-comment-dots fa-2x right"></i>
+              <% end %>
+            </p>
+            <p class="card-text"><small class="text-muted">
+              <%= time_ago_in_words(notification.created_at).upcase %>前</small>
+            </p>
+          </div>
+      </div>
     <% end %>
-    <%= time_ago_in_words(notification.created_at).upcase %>
+  <% else %>
+    <p>通知はありません</p>
   <% end %>
-<% else %>
-  <p>通知はありません</p>
-<% end %>
+</div>
