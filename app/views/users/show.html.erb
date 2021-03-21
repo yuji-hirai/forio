@@ -1,45 +1,81 @@
-<% if  @user.id == current_user.id %>
-  <h1>プロフィールページ</h1>
-  <% if @user.avatar.attached? %>
-    <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]).processed %>
-  <% else %>
-    <%= image_tag "default_user.png", :size => "50x50" %>
-  <% end %>
+<div class="container profile">
+  <h4 class="title">プロフィール</h4>
+  <div class="card profile">
+    <div class="card-icon">
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon-big" %>
+      <% else %>
+        <%= image_tag "default_user.png", class: "icon-big" %>
+      <% end %>
+      <p>
+        <strong><%= @user.name %>  </strong>さん
+      </p>
+    </div>
+    <p class="card-text">
+      <%= @user.introduction %>
+    </p>
+    <div class="follow_flex">
+      <% if  @user.id == current_user.id %>
+        <%= link_to "プロフィール変更", edit_user_registration_path, id: "button-fill" %>
+        <div id="button-fill">
+          <%= link_to followers_user_path(@user.id) do %>
+              <p class="follower">フォロワー<%= @user.followers.count %></p>
+          <% end %>
+        </div>
+        <div id="button-fill">
+          <%= link_to following_user_path(@user.id) do %>
+            <p class="follower">フォロー<%= @user.following.count %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <%= render "follow_form" %>
+  </div>
+  <h4 class="title">投稿一覧</h4>
+</div>
 
-  <h3>ユーザー名</h3>
-  <%= @user.name %>
-  <h3>メールアドレス</h3>
-  <%= @user.email %>
-  <h3>自己紹介</h3>
-  <%= @user.introduction%>
-
-  <div class="follower">
-    <%= link_to followers_user_path(@user.id) do %>
-        <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
+<!--投稿一覧-->
+<div class="container">
+  <div class="row">
+    <% @user.posts.each do |post| %>
+      <div class="col-md-6 col-xl-4 col-12 my-3 card-box-overlapping">
+        <div class="card h-100">
+          <%= link_to post do %>
+            <p class="image">
+              <% if post.images.attached? %>
+                <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+              <% else %>
+                <%= image_tag "title.png",class:"post_image_index" %>
+              <% end %>
+            </p>
+            <h5 class="card-title" id="heading-title"><%= post.title %></h5>
+          <% end %>
+          <div class="card-body">
+            <ul class="posts-tags">
+                <% post.tags.each do |tag| %>
+                  <li class="button">
+                    <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
+                  </li>
+                <% end %>
+            </ul>
+            <div>
+            <%= link_to post.user do %>
+              <% if post.user.avatar.attached? %>
+                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>
+              <% else %>
+                <%= image_tag "default_user.png", class: "icon_mini" %>
+              <% end %>
+              <%= post.user.name %>
+            <% end %>
+            </div>
+            <p class="heart" id="post_<%= post.id %>">
+              <%= render 'posts/post', post: post %>
+            </p>
+            <p class="card-content comment"><%= "コメント #{post.comments.count}件" %>
+            <p class="content-muted"><small class="content-muted"><%= l post.created_at %></small></p>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
-
-  <div class="follow">
-    <%= link_to following_user_path(@user.id) do %>
-      <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
-    <% end %>
-  </div>
-
-<% else %>
-  <h1><%= @user.name %>プロフィールページ</h1>
-  <% if @user.avatar.attached? %>
-    <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]).processed %>
-  <% else %>
-    <%= image_tag asset_path("default_user.png",:width =>'200', :height =>'200') %>
-  <% end %>
-<% end %>
-
-<a class="dropdown-item" href="<%= edit_user_registration_path %>">プロフィール変更</a></a>
-
-<% @user.posts.each do |post| %>
-  <%= link_to post.title, post%>
-<% end %>
-
-<div>
-  <%= render "follow_form" %>
 </div>
