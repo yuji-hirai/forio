@@ -21,7 +21,7 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 @import "@fortawesome/fontawesome-free/scss/brands";
 @import "@fortawesome/fontawesome-free/scss/v4-shims";
 
-/*まずはお決まりのボックスサイズ算出をborer-boxに */
+// ボックスサイズ算出をborer-boxに-------------------------------------------------------
 *,
 *:before,
 *:after {
@@ -83,7 +83,8 @@ button.btn {
   border-radius: 0.5rem;
 }
 
-// スクロール時のアイコン-------------
+// スクロール時のアイコン--------------------------------------------------------------------------------
+
 #page-top {
   position: fixed;
   right: 5px;
@@ -101,6 +102,7 @@ button.btn {
     cursor: pointer;
   }
 }
+
 #page-top::before {
   content: "";
   display: block;
@@ -113,13 +115,14 @@ button.btn {
   transform-origin: left top;
 }
 
-//flash----------------------
+//flash-----------------------------------------------------------------------------------------------------------
+
 .flash {
   margin-top: -30px;
   z-index: 100;
 }
 
-//header----------------------
+//header-----------------------------------------------------------------------------------------------------------
 
 header {
   background-color: rgb(191, 191, 191);
@@ -146,7 +149,8 @@ header {
   padding: 0;
 }
 
-//いいね----------------------
+//いいね-----------------------------------------------------------------------------------------------------------
+
 .like-link {
   text-decoration: none;
 }
@@ -161,7 +165,8 @@ header {
   color: #e54747;
 }
 
-//アラート----------------------
+//アラート-----------------------------------------------------------------------------------------------------------
+
 .alert {
   text-align: center;
 }
@@ -177,7 +182,8 @@ header {
   color: #3e3a3a;
 }
 
-//ページネーション----------------------
+//ページネーション-----------------------------------------------------------------------------------------------------------
+
 .pagination {
   justify-content: center;
 }
@@ -186,18 +192,15 @@ header {
 }
 
 .pagination > .active > a {
-
   background: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 50%, #fbf2f2 100%);
 }
 
-// .nav-link.dropdown-toggle {
-//   margin-right: 30px;
-// }
+//タグ-----------------------------------------------------------------------------------------------------------
 
-//タグ----------------------
 .all-posts {
   margin-bottom: 10px;
 }
+
 .posts-tags {
   display: flex;
   flex-wrap: wrap;
@@ -208,6 +211,7 @@ header {
     display: inline-block;
   }
 }
+
 a.btn-gradient {
   margin: 0 10px 10px 0;
   color: rgb(150, 139, 139);
@@ -223,8 +227,7 @@ a.btn-gradient:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-
-//カード----------------------
+//カード-----------------------------------------------------------------------------------------------------------
 
 .post_image_index {
   width: 100%;
@@ -247,11 +250,12 @@ a.btn-gradient:hover {
 
 .card-box-overlapping .card p.image .post_image_index {
   vertical-align: top;
-}s
+}
 
 .card-box-overlapping .card p.text {
   margin: 10px 0 0;
 }
+
 .card-box-overlapping .card {
   box-shadow: 10px 10px 0 #ccc;
   transform: translate(-4.5px, -4.5px);
@@ -267,6 +271,7 @@ a.btn-gradient:hover {
   color: #b3afaf;
   margin: 0;
 }
+
 .card-body {
   color: #212529;
   .heart {
@@ -282,7 +287,8 @@ a.btn-gradient:hover {
   border-left: 4px solid #eebbf0;
 }
 
-// 通知
+// 通知-----------------------------------------------------------------------------------------------------
+
 .notification {
   .title {
     text-align: center;
@@ -299,6 +305,7 @@ a.btn-gradient:hover {
     justify-content: space-between;
   }
 }
+
 img.icon_mini {
   margin-bottom: 5px;
   width: 40px;
@@ -307,7 +314,6 @@ img.icon_mini {
   display: inline-block;
 }
 
-/* Font Awesomeを使用しています。*/
 .form2 {
   position: relative;
 }
@@ -346,16 +352,18 @@ img.icon_mini {
   opacity: 0.54;
 }
 
-// フォロー一覧----------------------
+// フォロー一覧-----------------------------------------------------------------------------------------------------------
 
 img {
   display: block;
 }
 
-// いいね一覧----------------------
+// いいね一覧-----------------------------------------------------------------------------------------------------------
+
 .follow.title {
   text-align: center;
 }
+
 .container.follow {
   display: flex;
   flex-wrap: wrap;
@@ -425,7 +433,8 @@ img {
   display: block;
 }
 
-// プロフィール一覧----------------------
+// プロフィール一覧-----------------------------------------------------------------------------------------------------------
+
 .icon-big {
   width: 100px;
   height: 100px;
@@ -454,7 +463,7 @@ img {
   padding: 20px;
 }
 
-// フォーム共通
+// フォーム共通---------------------------------------------------------------------------------------------------------------
 
 .signin-inner {
   max-width: 500px;
@@ -476,12 +485,9 @@ img {
   margin-bottom: 0;
 }
 
-
-
 #button-fill p {
   margin-bottom: 0;
 }
-
 
 #button-fill:hover {
   color: black;
@@ -490,7 +496,6 @@ img {
 }
 
 @media screen and (max-width:440px) {
-  /*　画面サイズが480pxからはここを読み込む　*/
   .follow_flex,#follow_form {
     display: flex;
     flex-direction: column;
@@ -503,8 +508,8 @@ img {
       // justify-content: center;
     }
 }
+
 @media screen and (min-width:440px) {
-  /*　画面サイズが480pxからはここを読み込む　*/
   .follow_flex,#follow_form {
     display: flex;
     justify-content: space-between;
@@ -516,8 +521,7 @@ img {
     }
 }
 
-
-// ボタン----------------------------------
+// ボタン-----------------------------------------------------------------------------------------------------------------------
 
 .sns-button {
   max-width: 250px;
@@ -540,15 +544,18 @@ img {
     opacity: 0.8;
   }
 }
+
 .sns-button.facebook {
   background: #1877f2;
   color: white;
 }
+
 .sns-button.twitter {
   background: #00acee;
   color: white;
   margin: 15px auto;
 }
+
 .various-button {
   background-color: #f3e5476d;
   width: 100%;
@@ -558,12 +565,14 @@ img {
   background: #f2b818;
   width: 200px;
 }
+
 .guest-login{
   margin-top: 20px;
   background: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 50%, #fbf2f2 100%);
 }
 
-// 投稿フォーム
+// 投稿フォーム-----------------------------------------------------------------------------------------------------------------
+
 .container.edit h4{
   text-align: center;
 }
@@ -571,7 +580,8 @@ img {
   margin-bottom: 20px;
 }
 
-// 検索フォーム-----------------
+// 検索フォーム-----------------------------------------------------------------------------------------
+
 .search-form {
   margin: 30px 0;
 }
@@ -587,8 +597,8 @@ img {
   width: 245px;
   margin: 10px 0;
   overflow: hidden;
-
 }
+
 .search_container input[type="search"]{
   border: none;
   height: 2.0em;
@@ -597,6 +607,7 @@ img {
 .search_container input[type="search"]:focus {
   outline: 0;
 }
+
 .search_container input[type="submit"]{
   cursor: pointer;
   border: none;
@@ -608,4 +619,45 @@ img {
   right:0px;
   top: -5px;
   outline : none;
+}
+
+// 投稿詳細 posts/show------------------------------------------------------------------------------------------------------------------
+
+.post-show .post_image_index{
+  min-height: 400px;
+}
+
+.container.post-show{
+  max-width: 720px;
+}
+textarea.comment{
+  max-width: 685px;
+}
+
+.comments-form{
+  text-align: center;
+}
+
+.new_comment{
+  margin: 0 auto;
+  display: inline-block;
+  width: 100%;
+}
+
+#comment_content{
+  width: 100%;
+}
+
+#comments_area .comment{
+  text-align: center;
+}
+p.card-content.comment{
+  margin-bottom: 10px;
+}
+#post-edit-button{
+  margin: 0 0 20px auto;
+  max-width: 100px;
+  .various-button{
+    margin: 10px 0 ;
+  }
 }
