@@ -20,7 +20,7 @@
 #
 class Post < ApplicationRecord
   belongs_to :user
-  has_many_attached :images
+  has_one_attached :image
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :post_tags, dependent: :destroy
@@ -50,6 +50,12 @@ class Post < ApplicationRecord
       post_tag = Tag.find_or_create_by(name: new_name)
       self.tags << post_tag
     end
+  end
+
+  # ransackは、Arelを使用しているため、queryにSQLを入れて、Arelに変換
+  ransacker :likes_count do
+    query = '(SELECT COUNT(likes.post_id) FROM likes where likes.post_id = posts.id GROUP BY likes.post_id)'
+    Arel.sql(query)
   end
 
   def create_notification_like!(current_user)

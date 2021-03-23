@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     end
 
     @tag_lists = Tag.all.includes(:posts)
-    @posts = Kaminari.paginate_array(posts.includes({ post_tags: :tag }, :user).with_attached_images.order(created_at: :desc)).page(params[:page]).per(PER)
+    @posts = Kaminari.paginate_array(posts.includes({ post_tags: :tag }, :user).with_attached_image.order(created_at: :desc)).page(params[:page]).per(PER)
   end
 
   def new
@@ -61,10 +61,10 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, images: []).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :body, :image).merge(user_id: current_user.id)
   end
 
   def set_target_post
-    @post = Post.with_attached_images.find(params[:id])
+    @post = Post.with_attached_image.find(params[:id])
   end
 end

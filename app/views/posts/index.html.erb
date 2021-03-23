@@ -1,3 +1,4 @@
+<h4 class="title post_index">投稿一覧</h4>
 <div class="container">
   <!--タグ-->
   <div class="container ">
@@ -14,6 +15,8 @@
   </div>
   <!--検索-->
   <div class="container">
+    <%= sort_link(@q, :created_at, '新着順', default_order: :asc) %>
+    <%= sort_link(@q, :likes_count, 'いいね順', default_order: :desc) %>
     <div class="search_container">
       <%= search_form_for @q do |f| %>
         <%= f.search_field :title_or_body_or_tags_name_or_user_name_cont,placeholder: "キーワード", :required => true %>
@@ -21,7 +24,6 @@
       <% end %>
     </div>
   </div>
-
   <!--投稿一覧-->
   <div class="container">
     <div class="row">
@@ -30,8 +32,8 @@
           <div class="card h-100">
             <%= link_to post do %>
               <p class="image">
-                <% if post.images.attached? %>
-                  <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
                 <% else %>
                   <%= image_tag "title.png",class:"post_image_index" %>
                 <% end %>
