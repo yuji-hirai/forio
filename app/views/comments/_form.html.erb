@@ -1,7 +1,6 @@
-<%  unless current_user.id == post.user.id %>
-  <%= form_with model: [post, comment] do |f| %>
-    <%= f.label :content, 'コメント' %>
-    <%= f.text_area :content, size: "40x5" %>
-    <%= f.submit '送信', class: "btn-sm btn-primary" %>
+<div class="card-body">
+  <%= form_for ([post, comment]), remote: true do |f| %>
+    <%= f.text_area :content, class: "comment", placeholder: "コメント記入欄", :required => true %>
+    <%= f.submit 'コメント', class: "sns-button various-button" %>
   <% end %>
-<% end %>
+</div>

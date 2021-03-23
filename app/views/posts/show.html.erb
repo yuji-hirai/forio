@@ -1,43 +1,55 @@
+<!--編集、削除-->
 <% if @post.user_id == current_user.id %>
-  <div class="d-flex align-items-center mt-4 mb-4">
-    <div class="ml-auto posts_button">
-      <%= link_to '編集', edit_post_path(@post), class: "btn btn-outline-info" %>
-      <%= link_to "削除" , @posts, class: 'btn btn-outline-info', method: :delete %>
-    </div>
+  <div class="container" id="post-edit-button">
+    <%= link_to '編集', edit_post_path(@post), class: "sns-button various-button" %>
+    <%= link_to "削除" , @posts, class: 'sns-button various-button', method: :delete %>
   </div>
 <% end %>
-
-<div class="card">
-  <div class="card-header bg-info text-white">
-    <h4>タイトル<%= @post.title %></h4>
-  </div>
-  <% if @post.images.attached? %>
-    <% @post.images.each do |image| %>
-      <%= image_tag image.variant(resize_to_limit: [200, 200]).processed %> <br>
-    <% end %>
-  <% end %>
-  <div class="card-body">
-    <p class="card-text"><%= @post.body %></p>
+<!--記事詳細-->
+<div class="container post-show">
+  <div class="card-box-overlapping">
+    <div class="card">
+      <p class="image">
+        <% if @post.images.attached? %>
+          <%= image_tag @post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+        <% else %>
+          <%= image_tag "title.png",class:"post_image_index" %>
+        <% end %>
+      </p>
+      <h5 class="card-title" id="heading-title"><%= @post.title %></h5>
+      <div class="card-body">
+        <ul class="posts-tags">
+          <% @post.tags.each do |tag| %>
+            <li class="button">
+              <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
+            </li>
+          <% end %>
+        </ul>
+        <div>
+          <%= link_to @post.user do %>
+            <% if @post.user.avatar.attached? %>
+              <%= image_tag @post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>
+            <% else %>
+              <%= image_tag "default_user.png", class: "icon_mini" %>
+            <% end %>
+            <%= @post.user.name %>
+          <% end %>
+        </div>
+        <p class="heart" id="post_<%= @post.id %>">
+          <%= render 'post', post: @post %>
+        </p>
+        <p><%= @post.body %></p>
+        <p class="content-muted"><small class="content-muted"><%= l @post.created_at %></small></p>
+      </div>
+    </div>
   </div>
 </div>
-
-<%# フォロー機能 %>
-<div id="post_<%= @post.id %>">
-  <%= render 'post', post: @post %>
-</div>
-
-<%# コメント機能 %>
-<div class="row">
-  <ul>
-    <li class="comment-create">
-      <h3 class="text-left title">コメント欄</h3>
-    </li>
-    <li id="comments_area">
-      <%= render partial: 'comments/index', locals: { comments: @comments } %>
-    </li>
-  </ul>
-  <div class="comment-create">
-    <h3 class="text-left">コメントする</h3>
+<!--コメント-->
+<div class="container notification">
+  <div class="comments-form">
     <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
+  </div>
+  <div id="comments_area">
+    <%= render partial: 'comments/index', locals: { comments: @comments } %>
   </div>
 </div>

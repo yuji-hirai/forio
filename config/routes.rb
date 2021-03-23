@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get "sign_out" => "users/sessions#destroy"
   end
 
-  resources :users, :only => :show do
+  resources :users, only: [:index, :show] do
     member do
       get :following, :followers
     end
@@ -27,6 +27,4 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, :only => [:create, :destroy]
   end
-
-
 end

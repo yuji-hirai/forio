@@ -1,9 +1,32 @@
+<p class="card-content comment"><%= "コメント #{@post.comments.count}件" %></p>
 <% comments.each do |comment| %>
   <% unless comment.id.nil? %>
-    <p><%= link_to "#{comment.user.name}さん", user_path(comment.user.id) %></p>
-    <p>コメント：<%= comment.content %></p>
-    <% if comment.user == current_user %>
-      <p><%= link_to 'コメントを削除する', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true %></p>
-    <% end %>
+    <div class="container notification ">
+      <div class="card mb-3 mx-auto" style="max-width: 540px;">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= link_to users_path do %>
+              <% if comment.user.avatar.attached? %>
+                <%= image_tag comment.user.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
+              <% else %>
+                <%= image_tag "default_user.png", class: "icon_mini" %>
+              <% end %>
+              <strong><%= comment.user.name %></strong>さん
+            <% end %>
+          </h5>
+          <div class="card-text">
+            <p><%= comment.content %></p>
+            <% if comment.user == current_user %>
+              <%= link_to  post_comment_path(comment.post_id, comment.id), method: :delete, remote: true do %>
+                <i class="fas fa-trash fa-2x"></i>
+              <% end %>
+            <% end %>
+          </div>
+          <p class="card-text"><small class="text-muted">
+            <%= time_ago_in_words(comment.created_at).upcase %>前</small>
+          </p>
+        </div>
+      </div>
+    </div>
   <% end %>
 <% end %>

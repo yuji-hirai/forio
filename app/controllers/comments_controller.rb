@@ -6,7 +6,6 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @post }
         format.js { render 'comment_ajax.js.erb' }
       else
         format.html { redirect_to @post }

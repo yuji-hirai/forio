@@ -13,12 +13,15 @@
     </ul>
   </div>
   <!--検索-->
-  <div class="search-form">
-    <%= search_form_for @q do |f| %>
-      <%= f.search_field :title_or_body_or_tags_name_or_user_name_cont, class:"article-search-btn" %>
-      <%= f.submit "検索" %>
-    <% end %>
+  <div class="container">
+    <div class="search_container">
+      <%= search_form_for @q do |f| %>
+        <%= f.search_field :title_or_body_or_tags_name_or_user_name_cont,placeholder: "キーワード", :required => true %>
+        <%= f.submit "検索" %>
+      <% end %>
+    </div>
   </div>
+
   <!--投稿一覧-->
   <div class="container">
     <div class="row">
@@ -34,6 +37,7 @@
                 <% end %>
               </p>
               <h5 class="card-title" id="heading-title"><%= post.title %></h5>
+              <p class="card-content comment"><%= "コメント #{post.comments.count}件" %></p>
             <% end %>
             <div class="card-body">
               <ul class="posts-tags">
@@ -56,7 +60,6 @@
               <p class="heart" id="post_<%= post.id %>">
                 <%= render 'post', post: post %>
               </p>
-              <p class="card-content comment"><%= "コメント #{post.comments.count}件" %>
               <p class="content-muted"><small class="content-muted"><%= l post.created_at %></small></p>
             </div>
           </div>
