@@ -48,10 +48,10 @@
                 </div>
               </div>
               <div class="form-group mb-5">
-                <%= f.label :images, '画像' %>
+                <%= f.label :image, '画像' %>
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon3"><span class="fas fa-images"></span></span>
-                  <%= f.file_field :images, multiple: true, autofocus: true, class: 'form-control',placeholder: "画像を添付" %>
+                  <%= f.file_field :image, multiple: true, autofocus: true, class: 'form-control',placeholder: "画像を添付" %>
                 </div>
               </div>
               <div class="actions">
@@ -72,5 +72,3 @@
     </div>
   </section>
 <% end %>
-
-<%= link_to "戻る", :back %>

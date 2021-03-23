@@ -1,17 +1,9 @@
 <div class="container">
-<p>いいねした一覧</p>
-  <!--タグ-->
-  <div class="container ">
-    <ul class="posts-tags">
-      <%= link_to '全投稿', posts_path,class: "btn btn-gradient all-posts" %>
-      <% @tag_lists.each  do |list| %>
-        <% if list.posts.present? %>
-          <li class="button">
-          <%= link_to "##{list.name}  (#{list.posts.count})", posts_path(tag_id: list.id),class: "btn btn-gradient" %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+  <h4 class="title">いいね一覧</h4>
+  <!--検索-->
+  <div class="container">
+    <%= sort_link(@q, :created_at, '新着順', default_order: :asc) %>
+    <%= sort_link(@q, :likes_count, 'いいね順', default_order: :desc) %>
   </div>
   <!--投稿一覧-->
   <div class="container">
@@ -21,8 +13,8 @@
           <div class="card h-100">
             <%= link_to post do %>
               <p class="image">
-                <% if post.images.attached? %>
-                  <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
                 <% else %>
                   <%= image_tag "title.png",class:"post_image_index" %>
                 <% end %>

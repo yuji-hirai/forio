@@ -2,7 +2,7 @@
 <% if @post.user_id == current_user.id %>
   <div class="container" id="post-edit-button">
     <%= link_to '編集', edit_post_path(@post), class: "sns-button various-button" %>
-    <%= link_to "削除" , @posts, class: 'sns-button various-button', method: :delete %>
+    <%= link_to "削除" , @posts, class: 'sns-button various-button alarm', data: { confirm: "本当に削除しますか？" }, method: :delete %>
   </div>
 <% end %>
 <!--記事詳細-->
@@ -10,8 +10,8 @@
   <div class="card-box-overlapping">
     <div class="card">
       <p class="image">
-        <% if @post.images.attached? %>
-          <%= image_tag @post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+        <% if @post.image.attached? %>
+          <%= image_tag @post.image.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
         <% else %>
           <%= image_tag "title.png",class:"post_image_index" %>
         <% end %>

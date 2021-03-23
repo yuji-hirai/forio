@@ -41,8 +41,8 @@
         <div class="card h-100">
           <%= link_to post do %>
             <p class="image">
-              <% if post.images.attached? %>
-                <%= image_tag post.images.first.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+              <% if post.image.attached? %>
+                <%= image_tag post.image.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
               <% else %>
                 <%= image_tag "title.png",class:"post_image_index" %>
               <% end %>

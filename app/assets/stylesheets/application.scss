@@ -83,6 +83,17 @@ button.btn {
   border-radius: 0.5rem;
 }
 
+img {
+  display: block;
+}
+
+h4.title {
+  text-align: center;
+  &.post_index{
+    margin-bottom: 30px;
+  }
+}
+
 // スクロール時のアイコン--------------------------------------------------------------------------------
 
 #page-top {
@@ -143,7 +154,7 @@ header {
   margin: 0 0 0 auto;
 }
 #navbar-toggler:focus {
-  box-shadow: 0 0 0 0;
+  box-shadow:$white-box-shadow;
 }
 #top-page-header {
   padding: 0;
@@ -227,7 +238,7 @@ a.btn-gradient:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-//カード-----------------------------------------------------------------------------------------------------------
+//投稿一覧-----------------------------------------------------------------------------------------------------------
 
 .post_image_index {
   width: 100%;
@@ -287,12 +298,50 @@ a.btn-gradient:hover {
   border-left: 4px solid #eebbf0;
 }
 
+// 検索フォーム-----------------------------------------------------------------------------------------
+
+.search-form {
+  margin: 30px 0;
+}
+
+.search_container{
+  position: relative;
+  box-sizing: border-box;
+  border: 2px solid #0000006d;
+  display: block;
+  padding: 3px 10px;
+  border-radius: 3px;
+  height: 2.3em;
+  width: 245px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.search_container input[type="search"]{
+  border: none;
+  height: 2.0em;
+}
+
+.search_container input[type="search"]:focus {
+  outline: 0;
+}
+
+.search_container input[type="submit"]{
+  cursor: pointer;
+  border: none;
+  background-color: #00000056;
+  color: #fff;
+  position: absolute;
+  width: 3.5em;
+  height: 3.0em;
+  right:0px;
+  top: -5px;
+  outline : none;
+}
+
 // 通知-----------------------------------------------------------------------------------------------------
 
 .notification {
-  .title {
-    text-align: center;
-  }
   .trash a {
     color: #808385 !important;
   }
@@ -352,17 +401,7 @@ img.icon_mini {
   opacity: 0.54;
 }
 
-// フォロー一覧-----------------------------------------------------------------------------------------------------------
-
-img {
-  display: block;
-}
-
 // いいね一覧-----------------------------------------------------------------------------------------------------------
-
-.follow.title {
-  text-align: center;
-}
 
 .container.follow {
   display: flex;
@@ -449,10 +488,6 @@ img {
     font-size: 20px;
     margin: 20px auto;
   }
-}
-
-.profile h4.title {
-  text-align: center;
 }
 
 .card.profile {
@@ -580,48 +615,7 @@ img {
   margin-bottom: 20px;
 }
 
-// 検索フォーム-----------------------------------------------------------------------------------------
-
-.search-form {
-  margin: 30px 0;
-}
-
-.search_container{
-  position: relative;
-  box-sizing: border-box;
-  border: 2px solid #0000006d;
-  display: block;
-  padding: 3px 10px;
-  border-radius: 3px;
-  height: 2.3em;
-  width: 245px;
-  margin: 10px 0;
-  overflow: hidden;
-}
-
-.search_container input[type="search"]{
-  border: none;
-  height: 2.0em;
-}
-
-.search_container input[type="search"]:focus {
-  outline: 0;
-}
-
-.search_container input[type="submit"]{
-  cursor: pointer;
-  border: none;
-  background-color: #00000056;
-  color: #fff;
-  position: absolute;
-  width: 3.5em;
-  height: 3.0em;
-  right:0px;
-  top: -5px;
-  outline : none;
-}
-
-// 投稿詳細 posts/show------------------------------------------------------------------------------------------------------------------
+// 投稿詳細------------------------------------------------------------------------------------------------------------------
 
 .post-show .post_image_index{
   min-height: 400px;
@@ -657,7 +651,8 @@ p.card-content.comment{
 #post-edit-button{
   margin: 0 0 20px auto;
   max-width: 100px;
-  .various-button{
-    margin: 10px 0 ;
+  .various-button, .various-button.alarm{
+    margin: 20px 0 ;
+    width: 100%;
   }
 }
