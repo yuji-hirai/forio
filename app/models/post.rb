@@ -30,10 +30,10 @@ class Post < ApplicationRecord
 
   validates :title,
             presence: true,
-            length: { maximum: 50 }
+            length: { maximum: 60 }
   validates :body,
             presence: true,
-            length: { maximum: 1000 }
+            length: { maximum: 2000 }
 
   def save_tags(tags)
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
