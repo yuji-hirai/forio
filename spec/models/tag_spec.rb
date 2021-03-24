@@ -13,6 +13,33 @@
 #
 require 'rails_helper'
 
-# RSpec.describe Tag, type: :model do
-#   pending "add some examples to (or delete) #{__FILE__}"
-# end
+RSpec.describe Tag, type: :model do
+  let(:tag) { create(:tag) }
+
+  describe "name" do
+    it "タグ名がある場合、有効であること" do
+      expect(tag).to be_valid
+    end
+
+    it "タグ名がない場合、無効であること" do
+      tag.name = nil
+      expect(tag).to be_invalid
+      expect(tag.errors[:name]).to include("を入力してください")
+    end
+
+    context "タグ名が50文字以下の場合" do
+      it "有効であること" do
+        tag.name = "1" * 50
+        expect(tag).to be_valid
+      end
+    end
+
+    context "タグ名が51文字以上の場合" do
+      it "無効であること" do
+        tag.name = "1" * 51
+        expect(tag).to be_invalid
+        expect(tag.errors[:name]).to include("は50文字以内で入力してください")
+      end
+    end
+  end
+end
