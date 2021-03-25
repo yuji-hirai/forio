@@ -21,7 +21,6 @@
 
 RSpec.describe Post, type: :model do
   let(:post) { create(:post) }
-  let!(:same_title_post) { create(:post, title: "same_title") }
 
   it "タイトル、本文、user_idがある場合、有効であること" do
     expect(post).to be_valid
