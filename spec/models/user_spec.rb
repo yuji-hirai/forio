@@ -144,6 +144,14 @@ RSpec.describe User, type: :model do
         expect(user.errors[:password]).to include("は128文字以内で入力してください")
       end
     end
+
+    context "passwordとpassword_confirmationが異なる場合" do
+      it "無効であること" do
+        user.password = "TEST_PASSWORD"
+        user.password_confirmation = "OTHER_TEST_PASSWORD"
+        expect(user).to be_invalid
+      end
+    end
   end
 
   describe "followとfollower" do
