@@ -1,5 +1,5 @@
 <%= form_for(current_user, url: relationship_path(@user), method: :delete, remote: true) do |f| %>
-  <%= f.submit "フォロー解除", id: "button-fill" %>
+  <%= f.submit "フォロー解除", id: "button-fill", class: "button-unfollow" %>
 <% end %>
 
 <div id="button-fill">

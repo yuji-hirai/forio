@@ -22,7 +22,7 @@ require 'capybara/rspec'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -38,6 +38,18 @@ RSpec.configure do |config|
 
   # FactoryBot使用
   config.include FactoryBot::Syntax::Methods
+
+  # ログイン済みのユーザーをsystemテストするため作成
+  config.include SignIn, type: :system
+
+  # 新規投稿をsystemテストで￥使用するため作成
+  config.include PostCreate, type: :system
+
+  # ActionTextをsystemでテストするため作成
+  config.include ActionTextHelper, type: :system
+
+  # ajaxの待ち時間がsystemでテストする上で必要なため作成
+  config.include WaitForAjax, type: :system
 
   # DatabaseCleanerの設定
   config.before(:suite) do
@@ -84,4 +96,19 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.before(:each) do |example|
+    # <!--スクリーンショットあり--!>
+    if example.metadata[:type] == :system
+      driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+    end
+
+    # <!--スクリーンショットなし--!>
+    # if example.metadata[:type] == :system
+    #   if example.metadata[:js]
+    #     driven_by :selenium_chrome_headless, screen_size: [1400, 1400]
+    #   else
+    #     driven_by :rack_test
+    #   end
+    # end
+  end
 end

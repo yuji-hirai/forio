@@ -1,5 +1,3 @@
-<%= render "users/shared/error_messages", resource: resource %>
-
 <%= form_with model: resource, scope: resource_name, url: session_path(resource_name), id: 'new_user', class: 'new_user', local: true do |f| %>
   <section class="d-flex align-items-center section-image overlay-soft-dark">
     <div class="container">

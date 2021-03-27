@@ -1,6 +1,6 @@
 <div class="card-body">
   <%= form_for ([post, comment]), remote: true do |f| %>
-    <%= f.text_area :content, class: "comment", placeholder: "コメント記入欄", :required => true %>
+    <%= f.text_area :content, class: "comment", placeholder: "コメント記入欄", id: "textarea-comment", :required => true %>
     <%= f.submit 'コメント', class: "sns-button various-button" %>
   <% end %>
 </div>

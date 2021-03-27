@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.js { render 'comment_ajax.js.erb' }
+        format.js { render 'comments/comment_ajax' }
       else
         format.html { redirect_to @post }
       end
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    render "comments/comment_ajax.js.erb"
+    render "comments/comment_ajax"
   end
 
   private
