@@ -36,7 +36,7 @@
 <!--投稿一覧-->
 <div class="container">
   <div class="row">
-    <% @user.posts.each do |post| %>
+    <% @posts.each do |post| %>
       <div class="col-md-6 col-xl-4 col-12 my-3 card-box-overlapping">
         <div class="card h-100">
           <%= link_to post do %>

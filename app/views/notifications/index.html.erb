@@ -1,4 +1,3 @@
-<%# 自分の投稿に対するいいね、コメントは通知に表示しない %>
 <% notifications = @notifications.where.not(visitor_id: current_user.id).order(created_at: :desc)%>
 <div class="container notification ">
   <h4 class="title">通知</h4>

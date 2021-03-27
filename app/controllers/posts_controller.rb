@@ -2,16 +2,16 @@ class PostsController < ApplicationController
   before_action :set_target_post, only: [:show, :update, :destroy]
   PER = 9
   def index
-    @q = Post.includes(:tags, :rich_text_body).ransack(params[:q])
+    @q = Post.ransack(params[:q])
     if params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
-      posts = @tag.posts
+      posts = @tag.posts.includes(:tags)
     else
-      posts = @q.result(distinct: true)
+      posts = @q.result(distinct: true).includes(:tags)
     end
 
-    @tag_lists = Tag.all.includes(:posts)
-    @posts = Kaminari.paginate_array(posts.includes({ post_tags: :tag }, :user).with_attached_image.order(created_at: :desc)).page(params[:page]).per(PER)
+    @tag_lists = Tag.includes(:posts)
+    @posts = Kaminari.paginate_array(posts.includes({ post_tags: :tag }, user: [avatar_attachment: :blob]).with_attached_image.order(created_at: :desc)).page(params[:page]).per(PER)
   end
 
   def new
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new(post_id: @post.id)
-    @comments = @post.comments.includes(:user).order(created_at: :desc)
+    @comments = @post.comments.includes(user: [avatar_attachment: :blob]).order(created_at: :desc)
   end
 
   def edit
