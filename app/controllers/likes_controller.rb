@@ -3,7 +3,7 @@ class LikesController < ApplicationController
   PER = 9
   def index
     like_posts = current_user.like_posts
-    @q = like_posts.includes(:tags, :rich_text_body).ransack(params[:q])
+    @q = like_posts.includes(:tags).ransack(params[:q])
     if params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
       like_posts = @tag.like_posts
@@ -12,7 +12,7 @@ class LikesController < ApplicationController
     end
 
     @tag_lists = Tag.all.includes(:posts)
-    @like_posts = Kaminari.paginate_array(like_posts.includes({ post_tags: :tag }, :user).with_attached_image.order(created_at: :desc)).page(params[:page]).per(PER)
+    @like_posts = Kaminari.paginate_array(like_posts.includes({ post_tags: :tag }, user: [avatar_attachment: :blob]).with_attached_image.order(created_at: :desc)).page(params[:page]).per(PER)
   end
 
   def create
