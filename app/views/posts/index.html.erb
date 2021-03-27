@@ -1,13 +1,14 @@
+<% provide(:title, "投稿一覧") %>
 <h4 class="title post_index">投稿一覧</h4>
 <div class="container">
   <!--タグ-->
   <div class="container ">
     <ul class="posts-tags">
       <%= link_to '全投稿', posts_path,class: "btn btn-gradient all-posts" %>
-      <% @tag_lists.each  do |list| %>
+      <% @tag_lists.each do |list| %>
         <% if list.posts.present? %>
           <li class="button">
-          <%= link_to "##{list.name}  (#{list.posts.count})", posts_path(tag_id: list.id),class: "btn btn-gradient" %>
+          <%= link_to "##{list.name} (#{list.posts.count})", posts_path(tag_id: list.id),class: "btn btn-gradient" %>
           </li>
         <% end %>
       <% end %>

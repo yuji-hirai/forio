@@ -2,10 +2,9 @@
   <%= hidden_field_tag :following_id, @user.id %>
   <%= f.submit "フォローする", id: "button-fill", class: "button-follow" %>
 <% end %>
-
 <div id="button-fill">
   <%= link_to followers_user_path(@user.id) do %>
-      <p class="follower">フォロワー<%= @user.followers.count %></p>
+    <p class="follower">フォロワー<%= @user.followers.count %></p>
   <% end %>
 </div>
 <div id="button-fill">

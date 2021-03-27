@@ -1,10 +1,9 @@
 <%= form_for(current_user, url: relationship_path(@user), method: :delete, remote: true) do |f| %>
   <%= f.submit "フォロー解除", id: "button-fill", class: "button-unfollow" %>
 <% end %>
-
 <div id="button-fill">
   <%= link_to followers_user_path(@user.id) do %>
-      <p class="follower">フォロワー<%= @user.followers.count %></p>
+    <p class="follower">フォロワー<%= @user.followers.count %></p>
   <% end %>
 </div>
 <div id="button-fill">

@@ -2,11 +2,9 @@
   <%= link_to user_facebook_omniauth_authorize_path(provider: :facebook) do %>
     <p class="sns-button facebook">Facebookログイン</p>
   <% end %>
-
   <%= link_to user_twitter_omniauth_authorize_path(provider: :twitter) do %>
     <p class="sns-button twitter">Twitterログイン</p>
   <% end %>
-
   <%= link_to user_google_oauth2_omniauth_authorize_path(provider: :google_oauth2) do %>
     <p class="sns-button">Googleログイン</p>
   <% end %>

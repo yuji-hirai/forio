@@ -1,3 +1,4 @@
+<% provide(:title, "プロフィール") %>
 <div class="container profile">
   <h4 class="title">プロフィール</h4>
   <div class="card profile">
@@ -15,11 +16,11 @@
       <%= @user.introduction %>
     </p>
     <div class="follow_flex">
-      <% if  @user.id == current_user.id %>
+      <% if @user.id == current_user.id %>
         <%= link_to "プロフィール変更", edit_user_registration_path, id: "button-fill" %>
         <div id="button-fill">
           <%= link_to followers_user_path(@user.id) do %>
-              <p class="follower">フォロワー<%= @user.followers.count %></p>
+            <p class="follower">フォロワー<%= @user.followers.count %></p>
           <% end %>
         </div>
         <div id="button-fill">
@@ -51,13 +52,13 @@
           <% end %>
           <div class="card-body">
             <ul class="posts-tags">
-                <% post.tags.each do |tag| %>
-                  <li class="button">
-                    <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
-                  </li>
-                <% end %>
+              <% post.tags.each do |tag| %>
+                <li class="button">
+                  <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
+                </li>
+              <% end %>
             </ul>
-            <div>
+          <div>
             <%= link_to post.user do %>
               <% if post.user.avatar.attached? %>
                 <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>

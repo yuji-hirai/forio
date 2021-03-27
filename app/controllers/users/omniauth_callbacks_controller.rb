@@ -16,7 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback_for(:google)
   end
 
-  # common callback method
+  # callback method
   def callback_for(provider)
     # 'request.env["omniauth.auth"]'この中にSNSアカウントから取得したメールアドレスや、名前が含まれる
     @user = User.from_omniauth(request.env["omniauth.auth"])

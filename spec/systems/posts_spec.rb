@@ -11,7 +11,7 @@ RSpec.describe "Posts", type: :system do
   end
 
   describe "投稿" do
-    it "有効な値を入力すると、記事一覧に表示されること" do
+    it "有効な値を入力すると、投稿一覧に表示されること" do
       post_create(post)
       expect(current_path).to eq posts_path
       is_expected.to have_content "test_titleを投稿しました"
@@ -23,7 +23,7 @@ RSpec.describe "Posts", type: :system do
       is_expected.to have_selector "img[src$='test_post_img.jpg']"
     end
 
-    it "無効な値を入力すると、記事一覧に表示されない" do
+    it "無効な値を入力すると、投稿一覧に表示されない" do
       fill_in "投稿タイトル", with: "1" * 61
       fill_in_rich_text_area '投稿内容', with: "test_body"
       click_on "投稿する"

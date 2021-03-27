@@ -1,9 +1,10 @@
+<% provide(:title, "通知") %>
 <% notifications = @notifications.where.not(visitor_id: current_user.id).order(created_at: :desc)%>
 <div class="container notification ">
   <h4 class="title">通知</h4>
   <% if notifications.exists? %>
     <p class="mb-3 mx-auto trash" style="max-width: 540px;">
-      <%= link_to  notification_path(notifications), method: :delete  do %>
+      <%= link_to notification_path(notifications), method: :delete  do %>
         <i class="fas fa-trash"></i>通知全削除
       <% end %>
     </p>
