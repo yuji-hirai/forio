@@ -1,51 +1,50 @@
 <header  id="a-write">
-
-    <nav class="navbar navbar-light container-fluid">
-      <div class="navbar-brand flex-fill" >
-        <%= link_to  root_path do %>
-          <%= image_tag "title.png", :size => "130x50"  %>
-        <% end %>
-      </div>
-      <% if user_signed_in? %>
-        <div class="flex-fill user-name-header"><%= current_user.name %>さん</div>
-        <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar  flex-fill d-flex justify-content-end">
-            <li class="" ><a href="<%= new_post_path %>">
-              <i class="fas fa-pen"></i> 投稿</a>
-            </li>
-            <li class="" ><a href="<%= posts_path %>">
-              <i class="far fa-newspaper"></i> 記事一覧</a>
-            </li>
-            <li class=""><a href="<%= likes_index_path %>">
-              <i class="fas fa-heart header-icons"></i> いいね一覧</a>
-            </li>
-            <li class=""><a href="<%= notifications_path %>">
-              <i class="fas fa-bell"></i> 通知
-              <% if unchecked_notifications.any? %>
-                <span class="badge rounded-pill bg-warning text-dark">new</span>
-              <% end %>
-            </li>
-            <li class="" ><a href="<%= user_path(id: current_user.id) %>">
-              <i class="far fa-address-card"></i> プロフィール</a>
-            </li>
-            <li class="" ><a href="<%= users_path %>">
-              <i class="fas fa-users"></i> ユーザー一覧</a>
-            </li>
-            <li class="" ><a href="<%= sign_out_path %>">
-              <i class="fas fa-sign-out-alt"></i> ログアウト</a>
-            </li>
-          </div>
-        </div>
-      <% else %>
-        <div class="navbar justify-content-end" id="top-page-header">
-          <li class="" ><a href="<%= new_user_registration_path %>">登録</a>
-          </li>
-          <li class="" ><a href="<%= new_user_session_path %>">ログイン</a>
-          </li>
-        </div>
+  <nav class="navbar navbar-light container-fluid">
+    <div class="navbar-brand flex-fill" >
+      <%= link_to  root_path do %>
+        <%= image_tag "title.png", :size => "130x50" %>
       <% end %>
-    </nav>
+    </div>
+    <% if user_signed_in? %>
+      <div class="flex-fill user-name-header"><%= current_user.name %>さん</div>
+      <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar  flex-fill d-flex justify-content-end">
+          <li><a href="<%= new_post_path %>">
+            <i class="fas fa-pen"></i> 投稿</a>
+          </li>
+          <li ><a href="<%= posts_path %>">
+            <i class="far fa-newspaper"></i> 記事一覧</a>
+          </li>
+          <li><a href="<%= likes_index_path %>">
+            <i class="fas fa-heart header-icons"></i> いいね一覧</a>
+          </li>
+          <li><a href="<%= notifications_path %>">
+            <i class="fas fa-bell"></i> 通知
+            <% if unchecked_notifications.any? %>
+              <span class="badge rounded-pill bg-warning text-dark">new</span>
+            <% end %>
+          </li>
+          <li ><a href="<%= user_path(id: current_user.id) %>">
+            <i class="far fa-address-card"></i> プロフィール</a>
+          </li>
+          <li><a href="<%= users_path %>">
+            <i class="fas fa-users"></i> ユーザー一覧</a>
+          </li>
+          <li><a href="<%= sign_out_path %>">
+            <i class="fas fa-sign-out-alt"></i> ログアウト</a>
+          </li>
+        </div>
+      </div>
+    <% else %>
+      <div class="navbar justify-content-end" id="top-page-header">
+        <li><a href="<%= new_user_registration_path %>">登録</a>
+        </li>
+        <li><a href="<%= new_user_session_path %>">ログイン</a>
+        </li>
+      </div>
+    <% end %>
+  </nav>
 </header>

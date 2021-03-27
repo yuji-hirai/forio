@@ -8,8 +8,8 @@ RSpec.describe "Users", type: :request do
   let(:new_user_params) { attributes_for(:user, name: "after_update") }
   let(:invalid_new_user_params) { attributes_for(:user, name: nil) }
 
-  let(:guest_user) { create(:user, email: "guest@example.com", password: "guestguest", password_confirmation: "guestguest") }
-  let(:guest_user_params) { attributes_for(:user, email: "guest@example.com", password: "guestguest", password_confirmation: "guestguest") }
+  let(:guest_user) { create(:user, email: "guest@example.com", password: "guests", password_confirmation: "guests") }
+  let(:guest_user_params) { attributes_for(:user, email: "guest@example.com", password: "guests", password_confirmation: "guests") }
 
   describe "GET /users/sign_up" do
     it "新規登録画面の表示に成功すること" do
@@ -38,9 +38,10 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "DELETE /users/sign_out" do
-    before { sign_in user }
-
-    before { sign_in guest_user }
+    before do
+      sign_in user
+      sign_in guest_user
+    end
 
     it "ユーザーはログアウトに成功すること" do
       delete destroy_user_session_path

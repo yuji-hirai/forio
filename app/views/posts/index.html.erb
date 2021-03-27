@@ -33,9 +33,9 @@
             <%= link_to post do %>
               <p class="image">
                 <% if post.image.attached? %>
-                  <%= image_tag post.image.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+                  <%= image_tag post.image.variant(resize_to_limit: [70, 150]).processed, class:"post_image_index", id: "post_image" %>
                 <% else %>
-                  <%= image_tag "title.png",class:"post_image_index" %>
+                  <%= image_tag "title.png", class:"post_image_index" %>
                 <% end %>
               </p>
               <h5 class="card-title" id="heading-title"><%= post.title %></h5>
