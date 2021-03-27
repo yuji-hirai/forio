@@ -1,7 +1,7 @@
-<header  id="a-write">
+<header id="a-write">
   <nav class="navbar navbar-light container-fluid">
     <div class="navbar-brand flex-fill" >
-      <%= link_to  root_path do %>
+      <%= link_to root_path do %>
         <%= image_tag "title.png", :size => "130x50" %>
       <% end %>
     </div>
@@ -11,12 +11,12 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar  flex-fill d-flex justify-content-end">
+        <div class="navbar flex-fill d-flex justify-content-end">
           <li><a href="<%= new_post_path %>">
             <i class="fas fa-pen"></i> 投稿</a>
           </li>
           <li ><a href="<%= posts_path %>">
-            <i class="far fa-newspaper"></i> 記事一覧</a>
+            <i class="far fa-newspaper"></i> 投稿一覧</a>
           </li>
           <li><a href="<%= likes_index_path %>">
             <i class="fas fa-heart header-icons"></i> いいね一覧</a>
@@ -27,7 +27,7 @@
               <span class="badge rounded-pill bg-warning text-dark">new</span>
             <% end %>
           </li>
-          <li ><a href="<%= user_path(id: current_user.id) %>">
+          <li><a href="<%= user_path(id: current_user.id) %>">
             <i class="far fa-address-card"></i> プロフィール</a>
           </li>
           <li><a href="<%= users_path %>">

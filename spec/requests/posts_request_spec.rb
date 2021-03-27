@@ -5,7 +5,7 @@ RSpec.describe "Posts", type: :request do
   let(:post) { create(:post) }
 
   describe "GET /posts" do
-    it "ログインユーザーの場合、記事一覧画面が表示されること" do
+    it "ログインユーザーの場合、投稿一覧画面が表示されること" do
       sign_in user
       get posts_path
       expect(response).to have_http_status(200)
@@ -50,7 +50,7 @@ RSpec.describe "Posts", type: :request do
   end
 
   describe "GET /posts/:id/edit" do
-    it "ログインユーザーの場合、記事編集画面が表示されること" do
+    it "ログインユーザーの場合、投稿編集画面が表示されること" do
       sign_in user
       get edit_post_path(post.id)
       expect(response).to have_http_status(200)

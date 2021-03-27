@@ -1,3 +1,4 @@
+<% provide(:title, "いいね一覧") %>
 <div class="container">
   <h4 class="title">いいね一覧</h4>
   <!--検索-->
@@ -23,21 +24,21 @@
             <% end %>
             <div class="card-body">
               <ul class="posts-tags">
-                  <% post.tags.each do |tag| %>
-                    <li class="button">
-                      <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
-                    </li>
-                  <% end %>
+                <% post.tags.each do |tag| %>
+                  <li class="button">
+                    <%= link_to "#{tag.name}", posts_path(tag_id: tag.id) ,class: "btn btn-gradient" %>
+                  </li>
+                <% end %>
               </ul>
               <div>
-              <%= link_to post.user do %>
-                <% if post.user.avatar.attached? %>
-                  <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>
-                <% else %>
-                  <%= image_tag "default_user.png", class: "icon_mini" %>
+                <%= link_to post.user do %>
+                  <% if post.user.avatar.attached? %>
+                    <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>
+                  <% else %>
+                    <%= image_tag "default_user.png", class: "icon_mini" %>
+                  <% end %>
+                  <%= post.user.name %>
                 <% end %>
-                <%= post.user.name %>
-              <% end %>
               </div>
               <p class="heart" id="post_<%= post.id %>">
                 <%= render 'posts/post', post: post %>

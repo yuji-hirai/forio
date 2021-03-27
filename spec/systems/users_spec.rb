@@ -57,7 +57,7 @@ RSpec.describe "User", type: :system do
         is_expected.to have_link nil, href: root_path
         find(".navbar-toggler-icon").click
         is_expected.to have_link '投稿', href: new_post_path
-        is_expected.to have_link '記事一覧', href: posts_path
+        is_expected.to have_link '投稿一覧', href: posts_path
         is_expected.to have_link 'いいね一覧', href: likes_index_path
         is_expected.to have_link '通知', href: notifications_path
         is_expected.to have_link 'プロフィール', href: user_path(id: 1)
@@ -94,7 +94,7 @@ RSpec.describe "User", type: :system do
         is_expected.to have_link 'ログイン', href: new_user_session_path
         is_expected.not_to have_selector('#navbar-toggler')
         is_expected.not_to have_link '投稿', href: new_post_path
-        is_expected.not_to have_link '記事一覧', href: posts_path
+        is_expected.not_to have_link '投稿一覧', href: posts_path
         is_expected.not_to have_link 'いいね一覧', href: likes_index_path
         is_expected.not_to have_link '通知', href: notifications_path
         is_expected.not_to have_link 'プロフィール', href: user_path(id: 1)

@@ -64,7 +64,7 @@ RSpec.describe "Users", type: :request do
         end.to change(User, :count).by(1)
       end
 
-      it "記事一覧にリダレクトされること" do
+      it "投稿一覧にリダレクトされること" do
         post user_registration_path, params: { user: user_params }
         expect(response).to have_http_status(302)
         expect(response).to redirect_to posts_path

@@ -17,7 +17,7 @@
           <div class="card-text">
             <p><%= comment.content %></p>
             <% if comment.user == current_user %>
-              <%= link_to  post_comment_path(comment.post_id, comment.id), method: :delete, remote: true do %>
+              <%= link_to post_comment_path(comment.post_id, comment.id), method: :delete, remote: true do %>
                 <i class="fas fa-trash fa-2x"></i>
               <% end %>
             <% end %>
