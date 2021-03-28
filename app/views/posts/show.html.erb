@@ -11,7 +11,7 @@
     <div class="card">
       <p class="image">
         <% if @post.image.attached? %>
-          <%= image_tag @post.image.variant(resize_to_limit: [70, 150]).processed,class:"post_image_index" %>
+          <%= image_tag @post.image.variant(resize_to_limit: [800, 400]).processed,class:"post_image_index" %>
         <% else %>
           <%= image_tag "title.png",class:"post_image_index" %>
         <% end %>
@@ -28,7 +28,7 @@
         <div>
           <%= link_to @post.user do %>
             <% if @post.user.avatar.attached? %>
-              <%= image_tag @post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini"%>
+              <%= image_tag @post.user.avatar.variant(resize_to_limit: [400, 400]).processed, class: "icon_mini"%>
             <% else %>
               <%= image_tag "default_user.png", class: "icon_mini" %>
             <% end %>

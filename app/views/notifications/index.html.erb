@@ -14,7 +14,7 @@
           <h5 class="card-title">
             <%= link_to user_path(notification.visitor) do %>
               <% if notification.visitor.avatar.attached? %>
-                <%= image_tag notification.visitor.avatar.variant(resize_to_limit: [100, 100]).processed, class: "icon_mini" %>
+                <%= image_tag notification.visitor.avatar.variant(resize_to_limit: [400, 400]).processed, class: "icon_mini" %>
               <% else %>
                 <%= image_tag "default_user.png", class: "icon_mini" %>
               <% end %>
@@ -37,7 +37,7 @@
               <% else %>
                 <%= link_to post_path(notification.post) do %>
                   <% if notification.post.user.avatar.attached? %>
-                    <%= image_tag notification.post.user.avatar.variant(resize_to_limit: [40, 40]).processed, class: "icon_mini" %>
+                    <%= image_tag notification.post.user.avatar.variant(resize_to_limit: [400, 400]).processed, class: "icon_mini" %>
                   <% else %>
                     <%= image_tag "default_user.png", class: "icon_mini" %>
                   <% end %>
