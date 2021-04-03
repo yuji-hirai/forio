@@ -162,6 +162,12 @@ https://yuji-forio.herokuapp.com/
 
 <br>
 
+## 追加機能予定
+- ユーザーごとにお気に入りアイテム登録機能
+- ビューの一部をSPA化(Vue.js)
+
+<br>
+
 # 注力した点
 
 **Rspec でのテスト量**
